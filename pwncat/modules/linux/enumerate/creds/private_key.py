@@ -10,8 +10,8 @@ from cryptography.hazmat.primitives.serialization import (
 import pwncat
 from pwncat.facts import PrivateKey
 from pwncat.modules import Status
+from pwncat.modules.enumerate import EnumerateModule, Schedule
 from pwncat.platform.linux import Linux
-from pwncat.modules.enumerate import Schedule, EnumerateModule
 
 
 def _classify_key(content: str):

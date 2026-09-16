@@ -2,9 +2,9 @@
 import shlex
 
 from pwncat.db import Fact
-from pwncat.subprocess import CalledProcessError
+from pwncat.modules.enumerate import EnumerateModule, Schedule
 from pwncat.platform.linux import Linux
-from pwncat.modules.enumerate import Schedule, EnumerateModule
+from pwncat.subprocess import CalledProcessError
 
 
 class ProcessData(Fact):

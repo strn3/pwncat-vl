@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 import pwncat
-from pwncat.modules import Status, ModuleFailed
 from pwncat.facts.linux import LinuxUser
+from pwncat.modules import ModuleFailed, Status
+from pwncat.modules.enumerate import EnumerateModule, Schedule
 from pwncat.platform.linux import Linux
-from pwncat.modules.enumerate import Schedule, EnumerateModule
 
 
 class Module(EnumerateModule):

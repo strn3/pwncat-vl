@@ -13,30 +13,30 @@ to calling any other pwncat methods.
 
 from __future__ import annotations
 
-import os
-import stat
-import time
-import shlex
 import base64
-import shutil
+import contextlib
 import hashlib
+import os
 import pathlib
 import secrets
-import tempfile
-import contextlib
+import shlex
+import shutil
+import stat
 import subprocess
-from io import TextIOWrapper, BufferedIOBase, UnsupportedOperation
-from typing import BinaryIO
-from subprocess import TimeoutExpired, CalledProcessError
+import tempfile
+import time
 from collections.abc import Generator
 from importlib.resources import files as _pkg_files
+from io import BufferedIOBase, TextIOWrapper, UnsupportedOperation
+from subprocess import CalledProcessError, TimeoutExpired
+from typing import BinaryIO
 
 import pwncat
 import pwncat.channel
 import pwncat.subprocess
 from pwncat import util
 from pwncat.channel import ChannelError
-from pwncat.gtfobins import Stream, GTFOBins, Capability, MissingBinary
+from pwncat.gtfobins import Capability, GTFOBins, MissingBinary, Stream
 from pwncat.platform import Path, Platform, PlatformError
 
 
@@ -1735,7 +1735,7 @@ class Linux(Platform):
         elif not isinstance(command, str):
             raise ValueError("expected a command string or list of arguments")
 
-        if "shell" in popen_kwargs and popen_kwargs["shell"]:
+        if popen_kwargs.get("shell"):
             command = shlex.join(["/bin/sh", "-c", command])
             popen_kwargs["shell"] = False
 

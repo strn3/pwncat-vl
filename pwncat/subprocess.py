@@ -16,15 +16,15 @@ subprocess module.
 
 from __future__ import annotations
 
-from typing import IO
 from subprocess import (  # noqa: F401
-    PIPE,
     DEVNULL,
-    TimeoutExpired,
-    SubprocessError,
-    CompletedProcess,
+    PIPE,
     CalledProcessError,
+    CompletedProcess,
+    SubprocessError,
+    TimeoutExpired,
 )
+from typing import IO
 
 
 class Popen:

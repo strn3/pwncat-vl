@@ -5,8 +5,8 @@ import rich.markup
 
 import pwncat
 from pwncat.db import Fact
-from pwncat.platform.windows import Windows
 from pwncat.modules.enumerate import EnumerateModule
+from pwncat.platform.windows import Windows
 
 """
 TODO: This should use csvreader.

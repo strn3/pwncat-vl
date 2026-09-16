@@ -7,36 +7,36 @@ when interacting with data returned by an enumeration module.
 
 from __future__ import annotations
 
-import time
 import subprocess
-from io import StringIO
+import time
 from collections.abc import Callable
+from io import StringIO
 
 import rich.markup
 from persistent.list import PersistentList
 
 import pwncat
-from pwncat.db import Fact
 from pwncat.channel import ChannelError
-from pwncat.modules import ModuleFailed
-from pwncat.platform import PlatformError
-from pwncat.facts.tamper import (  # noqa: F401
-    Tamper,
-    CreatedFile,
-    ReplacedFile,
-    CreatedDirectory,
-)
+from pwncat.db import Fact
 from pwncat.facts.ability import (  # noqa: F401
-    GTFOExecute,
-    GTFOFileRead,
-    SpawnAbility,
-    GTFOFileWrite,
     ExecuteAbility,
     FileReadAbility,
     FileWriteAbility,
+    GTFOExecute,
+    GTFOFileRead,
+    GTFOFileWrite,
+    SpawnAbility,
     build_gtfo_ability,
 )
 from pwncat.facts.implant import Implant, ImplantType, KeepImplantFact  # noqa: F401
+from pwncat.facts.tamper import (  # noqa: F401
+    CreatedDirectory,
+    CreatedFile,
+    ReplacedFile,
+    Tamper,
+)
+from pwncat.modules import ModuleFailed
+from pwncat.platform import PlatformError
 
 
 class ArchData(Fact):
@@ -137,7 +137,7 @@ class Group(Fact):
         self.id = gid
         self.members: PersistentList = PersistentList(members)
 
-    def title(self, session: "pwncat.manager.Session"):
+    def title(self, session: pwncat.manager.Session):
 
         members = []
         for uid in self.members:
@@ -272,7 +272,7 @@ class PrivateKey(Implant):
         """ Is this private key encrypted? """
         self.authorized: bool = authorized
 
-    def title(self, session: "pwncat.manager.Session"):
+    def title(self, session: pwncat.manager.Session):
         user = session.find_user(uid=self.uid)
 
         return f"Private key owned by [blue]{user.name}[/blue] at [cyan]{rich.markup.escape(self.path)}[/cyan]"
@@ -280,12 +280,12 @@ class PrivateKey(Implant):
     def description(self, session) -> str:
         return self.content
 
-    def remove(self, session: "pwncat.manager.Session"):
+    def remove(self, session: pwncat.manager.Session):
         """Remove the implant types from this private key"""
 
         raise KeepImplantFact()
 
-    def escalate(self, session: "pwncat.manager.Session"):
+    def escalate(self, session: pwncat.manager.Session):
         """Escalate to the owner of this private key with a local ssh call"""
 
         if not self.authorized:
@@ -343,8 +343,8 @@ class PrivateKey(Implant):
 
     def trigger(
         self,
-        manager: "pwncat.manager.Manager",
-        target: "pwncat.target.Target",
+        manager: pwncat.manager.Manager,
+        target: pwncat.target.Target,
     ):
         """Connect remotely to this target with the specified user and key"""
 
@@ -397,8 +397,8 @@ class EscalationReplace(Fact):
 
     def escalate(
         self,
-        session: "pwncat.manager.Session",
-    ) -> Callable[["pwncat.manager.Session"], None]:
+        session: pwncat.manager.Session,
+    ) -> Callable[[pwncat.manager.Session], None]:
         """Execute the escalation optionally returning a new session
 
         :param session: the session on which to operate
@@ -424,7 +424,7 @@ class EscalationSpawn(Fact):
         self.source_uid = source_uid
         self.uid = uid
 
-    def execute(self, session: "pwncat.manager.Session") -> "pwncat.manager.Session":
+    def execute(self, session: pwncat.manager.Session) -> pwncat.manager.Session:
         """Spawn a new session under the context of a new user
 
         :param session: the session on which to operate

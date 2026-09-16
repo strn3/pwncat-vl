@@ -2,8 +2,8 @@
 
 import pwncat
 from pwncat.modules import Status
-from pwncat.platform.windows import Windows, PowershellError
-from pwncat.modules.enumerate import Schedule, EnumerateModule
+from pwncat.modules.enumerate import EnumerateModule, Schedule
+from pwncat.platform.windows import PowershellError, Windows
 
 
 class Module(EnumerateModule):

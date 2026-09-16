@@ -10,10 +10,10 @@ import pytest
 
 from pwncat.gtfobins import (
     Binary,
-    Stream,
-    GTFOBins,
-    Capability,
     BinaryNotFound,
+    Capability,
+    GTFOBins,
+    Stream,
     SudoNotPossible,
 )
 

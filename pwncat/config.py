@@ -23,13 +23,13 @@ specific to your module or command.
 
 from __future__ import annotations
 
-import os
 import copy
 import ipaddress
+import os
 from typing import Any
 
-from prompt_toolkit.keys import ALL_KEYS, Keys
 from prompt_toolkit.input.ansi_escape_sequences import REVERSE_ANSI_SEQUENCES
+from prompt_toolkit.keys import ALL_KEYS, Keys
 
 from pwncat.modules import BaseModule
 
@@ -131,7 +131,7 @@ class Config:
             KeyType("c"): "set state command",
         }
 
-    def copy(self) -> "Config":
+    def copy(self) -> Config:
         """Copy this configuration object exactly. This is mainly used
         to allow for the possibility of running modules in the background
         without being affected by future configuration changes."""

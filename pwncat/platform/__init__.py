@@ -30,17 +30,17 @@ a session-specific path object by utilizing the ``session.platform.Path`` proper
 
 from __future__ import annotations
 
-import os
-import sys
-import stat
 import fnmatch
 import logging
-import threading
 import logging.handlers
+import os
+import stat
+import sys
+import threading
 from abc import ABC, abstractmethod
-from typing import BinaryIO
-from subprocess import CalledProcessError
 from collections.abc import Generator
+from subprocess import CalledProcessError
+from typing import BinaryIO
 
 from rich.logging import RichHandler
 
@@ -119,9 +119,9 @@ def probe_platform(channel, timeout: float = 3.0) -> str | None:
     random markers so we can recover the response even if the channel has
     pending banner output."""
 
-    import time
     import random
     import string
+    import time
 
     suffix = "".join(random.choices(string.ascii_uppercase + string.digits, k=10))
     start = f"{_PROBE_MARKER_PREFIX}{suffix}_START".encode()
@@ -210,18 +210,18 @@ class Path:
     pathlib concrete Path.
     """
 
-    _target: "Platform"
+    _target: Platform
     _stat: os.stat_result
     _lstat: os.stat_result
     parts = []
 
     @classmethod
-    def cwd(cls) -> "Path":
+    def cwd(cls) -> Path:
         """Return a new concrete path referencing the current directory"""
         return cls(".").resolve()
 
     @classmethod
-    def home(cls) -> "Path":
+    def home(cls) -> Path:
         """Return a new concrete path referencing the current user home directory"""
         return cls("~").resolve()
 
@@ -301,7 +301,7 @@ class Path:
         except FileNotFoundError:
             return False
 
-    def expanduser(self) -> "Path":
+    def expanduser(self) -> Path:
         """Return a new path object which represents the full path to the file
         expanding any ``~`` or ``~user`` components."""
 
@@ -318,7 +318,7 @@ class Path:
             *self.parts[1:],
         )
 
-    def glob(self, pattern: str) -> Generator["Path", None, None]:
+    def glob(self, pattern: str) -> Generator[Path, None, None]:
         """Glob the given relative pattern in the directory represented
         by this path, yielding Path objects for any matching files/directories."""
 
@@ -477,12 +477,12 @@ class Path:
         with self.open("r", encoding=encoding, errors=errors) as filp:
             return filp.read()
 
-    def readlink(self) -> "Path":
+    def readlink(self) -> Path:
         """Return the path to which the symbolic link points"""
 
         return self._target.readlink(str(self))
 
-    def rename(self, target) -> "Path":
+    def rename(self, target) -> Path:
         """Rename the file or directory to the given target (str or Path)."""
 
         self._target.rename(str(self), str(target))
@@ -492,7 +492,7 @@ class Path:
 
         return target
 
-    def replace(self, target) -> "Path":
+    def replace(self, target) -> Path:
         """Same as `rename` for Linux"""
 
         return self.rename(target)
@@ -502,7 +502,7 @@ class Path:
 
         return self.__class__(self._target.abspath(str(self)))
 
-    def rglob(self, pattern: str) -> Generator["Path", None, None]:
+    def rglob(self, pattern: str) -> Generator[Path, None, None]:
         r"""This is like calling Path.glob() with "\*\*/" added to in the front
         of the given relative pattern"""
 
@@ -516,7 +516,7 @@ class Path:
 
         self._target.rmdir(str(self))
 
-    def samefile(self, otherpath: "Path"):
+    def samefile(self, otherpath: Path):
         """Return whether this path points to the same file as other_path
         which can be either a Path object or a string."""
 
@@ -630,8 +630,8 @@ class Platform(ABC):
 
     def __init__(
         self,
-        session: "pwncat.manager.Session",
-        channel: "pwncat.channel.Channel",
+        session: pwncat.manager.Session,
+        channel: pwncat.channel.Channel,
         log: str = None,
         verbose: bool = False,
     ):
@@ -694,7 +694,7 @@ class Platform(ABC):
         """Shortcut to accessing the manager"""
         return self.session.manager
 
-    def interactive_loop(self, interactive_complete: "threading.Event"):
+    def interactive_loop(self, interactive_complete: threading.Event):
         """Handles interactive piping of data between victim and attacker. If
         the platform you are implementing does not support raw mode, you must
         override this method to support interactivity. A working example with
@@ -1205,8 +1205,8 @@ def create(
     return find(platform)(channel, log)
 
 
-from pwncat.platform.linux import Linux  # noqa: E402
-from pwncat.platform.windows import Windows  # noqa: E402
+from pwncat.platform.linux import Linux
+from pwncat.platform.windows import Windows
 
 register(Linux)
 register(Windows)

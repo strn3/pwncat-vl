@@ -4,8 +4,8 @@ import subprocess
 
 import pytest
 
-from pwncat.util import random_string
 from pwncat.platform.windows import PowershellError
+from pwncat.util import random_string
 
 
 def test_platform_dir_io(session):

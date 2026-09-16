@@ -9,11 +9,11 @@ The only required arguments are ``host`` and ``port``.
 
 import socket
 
-from rich.progress import Progress, BarColumn
+from rich.progress import BarColumn, Progress
 
-from pwncat.util import console
 from pwncat.channel import ChannelError
 from pwncat.channel.socket import Socket
+from pwncat.util import console
 
 
 class Connect(Socket):

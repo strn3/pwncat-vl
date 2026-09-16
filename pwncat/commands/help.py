@@ -2,11 +2,11 @@
 import textwrap
 
 import rich.box
-from rich.table import Table, Column
+from rich.table import Column, Table
 
 import pwncat
+from pwncat.commands import CommandDefinition, Complete, Parameter
 from pwncat.util import console
-from pwncat.commands import Complete, Parameter, CommandDefinition
 
 
 class Command(CommandDefinition):

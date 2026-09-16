@@ -13,8 +13,8 @@ import pytest
 
 from pwncat.config import (
     KeyType,
-    key_type,
     bool_type,
+    key_type,
     local_dir_type,
     local_file_type,
 )

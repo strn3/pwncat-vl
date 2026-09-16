@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 import pwncat
-from pwncat.modules import ModuleFailed
 from pwncat.facts.windows import ProcessTokenPrivilege
-from pwncat.platform.windows import Windows, PowershellError
-from pwncat.modules.enumerate import Scope, Schedule, EnumerateModule
+from pwncat.modules import ModuleFailed
+from pwncat.modules.enumerate import EnumerateModule, Schedule, Scope
+from pwncat.platform.windows import PowershellError, Windows
 
 
 class Module(EnumerateModule):

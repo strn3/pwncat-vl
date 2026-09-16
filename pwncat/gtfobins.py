@@ -9,12 +9,12 @@ binaries can be seen in ``pwncat/data/gtfobins.json``.
 
 from __future__ import annotations
 
-import os
 import json
+import os
 import shlex
+from collections.abc import Callable, Generator
 from enum import Flag, auto
 from typing import IO, Any, BinaryIO
-from collections.abc import Callable, Generator
 
 
 class ControlCodes:
@@ -80,7 +80,7 @@ class Stream(Flag):
 class Method:
     """Abstract method class built from the JSON database"""
 
-    def __init__(self, binary: "Binary", cap: Capability, data: dict[str, Any]):
+    def __init__(self, binary: Binary, cap: Capability, data: dict[str, Any]):
         """Create a new method associated with the given binary."""
 
         try:
@@ -159,7 +159,7 @@ class Method:
 
     def build_payload(
         self,
-        gtfo: "GTFOBins",
+        gtfo: GTFOBins,
         binary_path: str,
         spec: str = None,
         user: str = None,
@@ -255,7 +255,7 @@ class MethodWrapper:
             f"{self.stream.name}: non raw or print streams are no longer supported",
         )
 
-    def build(self, gtfo: "GTFOBins", **kwargs) -> tuple[str, str, str]:
+    def build(self, gtfo: GTFOBins, **kwargs) -> tuple[str, str, str]:
         """Build the payload for this method and binary path. Depending on
         capability and stream type, different named parameters are required.
 
@@ -266,10 +266,10 @@ class MethodWrapper:
             self.exit(gtfo=gtfo, **kwargs),
         )
 
-    def payload(self, gtfo: "GTFOBins", **kwargs) -> str:
+    def payload(self, gtfo: GTFOBins, **kwargs) -> str:
         return self.method.build_payload(gtfo, self.binary_path, **kwargs)
 
-    def exit(self, gtfo: "GTFOBins", **kwargs) -> str:
+    def exit(self, gtfo: GTFOBins, **kwargs) -> str:
         original = gtfo.resolve_binaries(
             self.method.exit,
             ctrl_c=ControlCodes.CTRL_C,
@@ -288,7 +288,7 @@ class MethodWrapper:
 
         return original
 
-    def input(self, gtfo: "GTFOBins", **kwargs) -> str:
+    def input(self, gtfo: GTFOBins, **kwargs) -> str:
         return gtfo.resolve_binaries(
             self.method.input,
             ctrl_c=ControlCodes.CTRL_C,
@@ -316,7 +316,7 @@ class MethodWrapper:
 class Binary:
     """Encapsulates a GTFOBin and it's methods for all capabilities"""
 
-    def __init__(self, gtfo: "GTFOBins", name: str, methods: list[dict[str, Any]]):
+    def __init__(self, gtfo: GTFOBins, name: str, methods: list[dict[str, Any]]):
         """Create a GTFOBin from the given list of capabilities"""
 
         # Initialize to no capabilities

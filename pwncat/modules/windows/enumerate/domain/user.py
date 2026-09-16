@@ -4,10 +4,10 @@ from __future__ import annotations
 from datetime import datetime
 
 import pwncat
-from pwncat.modules import Status
 from pwncat.facts.windows import WindowsUser
-from pwncat.platform.windows import Windows, PowershellError
-from pwncat.modules.enumerate import Schedule, EnumerateModule
+from pwncat.modules import Status
+from pwncat.modules.enumerate import EnumerateModule, Schedule
+from pwncat.platform.windows import PowershellError, Windows
 
 
 class DomainUser(WindowsUser):
@@ -78,7 +78,7 @@ class Module(EnumerateModule):
     PROVIDES = ["domain.user", "user"]
     SCHEDULE = Schedule.ONCE
 
-    def enumerate(self, session: "pwncat.manager.Session"):
+    def enumerate(self, session: pwncat.manager.Session):
         """Perform enumeration"""
 
         # Check that we are in a domain

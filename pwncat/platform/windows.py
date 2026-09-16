@@ -16,31 +16,31 @@ or code as the C2 will not attempt to garbage collect file or process handles.
 
 from __future__ import annotations
 
-import sys
-import gzip
-import json
-import stat
-import time
 import base64
-import shutil
-import hashlib
-import pathlib
-import tarfile
 import binascii
-import readline  # noqa: F401
 import functools
-import threading
+import gzip
+import hashlib
+import json
+import pathlib
+import readline  # noqa: F401
+import shutil
+import stat
 import subprocess
-from io import BytesIO, RawIOBase, TextIOWrapper
-from typing import BinaryIO
-from subprocess import TimeoutExpired, CalledProcessError
+import sys
+import tarfile
+import threading
+import time
 from dataclasses import dataclass
+from io import BytesIO, RawIOBase, TextIOWrapper
+from subprocess import CalledProcessError, TimeoutExpired
+from typing import BinaryIO
 
 import requests
 
 import pwncat
-import pwncat.util
 import pwncat.subprocess
+import pwncat.util
 from pwncat.platform import Path, Platform, PlatformError
 
 INTERACTIVE_END_MARKER = b"INTERACTIVE_COMPLETE\r\n"
@@ -100,7 +100,7 @@ class stat_result:
 class WindowsFile(RawIOBase):
     """Wrapper around file handles on Windows"""
 
-    def __init__(self, platform: "Windows", mode: str, handle: int, name: str = None):
+    def __init__(self, platform: Windows, mode: str, handle: int, name: str = None):
         self.platform = platform
         self.mode = mode
         self.handle = handle
@@ -209,7 +209,7 @@ class DotNetPlugin:
     :type ident: int
     """
 
-    def __init__(self, platform: "Windows", name: str, checksum: str, ident: int):
+    def __init__(self, platform: Windows, name: str, checksum: str, ident: int):
 
         self.names = [name]
         self.checksum = checksum
@@ -456,7 +456,7 @@ class Windows(Platform):
     ]
 
     @classmethod
-    def open_plugin(cls, manager: "pwncat.manager.Manager", name: str) -> BytesIO:
+    def open_plugin(cls, manager: pwncat.manager.Manager, name: str) -> BytesIO:
         """
         Open the given plugin DLL for reading and return an open file object.
         If the given name matches a builtin plugin, it will be used. If a
@@ -504,7 +504,7 @@ class Windows(Platform):
 
     def __init__(
         self,
-        session: "pwncat.session.Session",
+        session: pwncat.session.Session,
         channel: pwncat.channel.Channel,
         *args,
         **kwargs,
@@ -820,7 +820,7 @@ function prompt {
         """
         return self.host_uuid
 
-    def interactive_loop(self, interactive_complete: "threading.Event"):
+    def interactive_loop(self, interactive_complete: threading.Event):
         """
         Interactively read input from the attacker and send it to an interactive
         terminal on the victim. `RawModeExit` and `ChannelClosed` exceptions

@@ -5,7 +5,7 @@ import fnmatch
 from io import IOBase
 
 import pwncat.modules
-from pwncat.modules import Status, ModuleFailed
+from pwncat.modules import ModuleFailed, Status
 from pwncat.modules.enumerate import EnumerateModule
 
 

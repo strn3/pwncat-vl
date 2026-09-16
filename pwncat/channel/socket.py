@@ -17,14 +17,14 @@ utilize this class to instantiate a session via an established socket.
 
 from __future__ import annotations
 
-import os
-import ssl
 import errno
 import fcntl
-import socket
 import functools
+import os
+import socket
+import ssl
 
-from pwncat.channel import Channel, ChannelError, ChannelClosed
+from pwncat.channel import Channel, ChannelClosed, ChannelError
 
 
 def connect_required(method):

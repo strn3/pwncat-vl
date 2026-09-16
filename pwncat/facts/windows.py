@@ -4,12 +4,12 @@ Windows-specific facts which are used in multiple places throughout the framewor
 
 from __future__ import annotations
 
-from enum import IntFlag
-from datetime import datetime
 from collections.abc import Callable
+from datetime import datetime
+from enum import IntFlag
 
 import pwncat
-from pwncat.facts import Fact, User, Group, ExecuteAbility
+from pwncat.facts import ExecuteAbility, Fact, Group, User
 from pwncat.modules import ModuleFailed
 from pwncat.platform import PlatformError
 
@@ -33,7 +33,7 @@ class ProcessTokenPrivilege(Fact):
         self.handle = handle
         self.pid = pid
 
-    def title(self, session: "pwncat.manager.Session"):
+    def title(self, session: pwncat.manager.Session):
         attributes = str(self.attributes).removeprefix("LuidAttribute.").split("|")
 
         for i in range(len(attributes)):
@@ -52,7 +52,7 @@ class UserToken(ExecuteAbility):
 
         self.token = token
 
-    def can_impersonate(self, session: "pwncat.manager.Session"):
+    def can_impersonate(self, session: pwncat.manager.Session):
         """Test if the current session can impersonate tokens"""
 
         for priv in session.run("enumerate", types=["token.privilege"]):
@@ -64,7 +64,7 @@ class UserToken(ExecuteAbility):
 
         return False
 
-    def title(self, session: "pwncat.manager.Session"):
+    def title(self, session: pwncat.manager.Session):
 
         user = session.find_user(uid=self.uid)
         if user is None:
@@ -78,8 +78,8 @@ class UserToken(ExecuteAbility):
 
     def shell(
         self,
-        session: "pwncat.manager.Session",
-    ) -> Callable[["pwncat.manager.Session"], None]:
+        session: pwncat.manager.Session,
+    ) -> Callable[[pwncat.manager.Session], None]:
         """Execute a new shell as the specified user. In this case, just impersonate the user."""
 
         if not self.can_impersonate(session):

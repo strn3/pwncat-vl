@@ -6,8 +6,8 @@ from importlib.resources import files as _pkg_files
 
 from pwncat.db import Fact
 from pwncat.facts import ArchData, HostnameData
+from pwncat.modules.enumerate import EnumerateModule, Schedule
 from pwncat.platform.linux import Linux
-from pwncat.modules.enumerate import Schedule, EnumerateModule
 
 
 class KernelVersionData(Fact):

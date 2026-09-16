@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-import os
 import datetime
+import os
 
 import jinja2
 from rich.markdown import Markdown
 
 import pwncat
+from pwncat.modules import Argument, BaseModule, Bool, ModuleFailed
 from pwncat.util import console, strip_markup
-from pwncat.modules import Bool, Argument, BaseModule, ModuleFailed
 
 
 class Module(BaseModule):

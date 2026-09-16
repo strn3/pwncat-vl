@@ -11,8 +11,8 @@ Lastly, a remote implant allows pwncat to reconnect to the target.
 from __future__ import annotations
 
 import enum
-from typing import Union
 from collections.abc import Callable
+from typing import Union
 
 import pwncat
 from pwncat.db import Fact
@@ -58,8 +58,8 @@ class Implant(Fact):
 
     def escalate(
         self,
-        session: "pwncat.manager.Session",
-    ) -> Union["pwncat.manager.Session", Callable[["pwncat.manager.Session"], None]]:
+        session: pwncat.manager.Session,
+    ) -> Union[pwncat.manager.Session, Callable[[pwncat.manager.Session], None]]:
         """
         Escalate to the target user locally. If the implant type is ``implant.replace``, this
         method should replace the current user context with the target user and return a
@@ -73,7 +73,7 @@ class Implant(Fact):
         """
         raise NotImplementedError()
 
-    def trigger(self, target: "pwncat.target.Target") -> "pwncat.manager.Session":
+    def trigger(self, target: pwncat.target.Target) -> pwncat.manager.Session:
         """Trigger a remote implant and establish a new session. This is only valid for
         ``implant.remote`` implant types. It should return the newly established session.
 
@@ -82,7 +82,7 @@ class Implant(Fact):
         :rtype: pwncat.manager.Session
         """
 
-    def remove(self, session: "pwncat.manager.Session"):
+    def remove(self, session: pwncat.manager.Session):
         """Remove this implant from the target.
 
         :param session: the session on which to act

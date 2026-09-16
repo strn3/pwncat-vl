@@ -3,18 +3,18 @@ import os
 import time
 
 from rich.progress import (
-    Progress,
     BarColumn,
-    TextColumn,
     DownloadColumn,
+    Progress,
+    TextColumn,
     TimeRemainingColumn,
     TransferSpeedColumn,
 )
 
 import pwncat
-from pwncat.util import console, copyfileobj, human_readable_size, human_readable_delta
-from pwncat.commands import Complete, Parameter, CommandDefinition
+from pwncat.commands import CommandDefinition, Complete, Parameter
 from pwncat.platform import PlatformError
+from pwncat.util import console, copyfileobj, human_readable_delta, human_readable_size
 
 
 class Command(CommandDefinition):

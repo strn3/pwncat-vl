@@ -7,8 +7,8 @@ import rich.markup
 
 import pwncat
 from pwncat.db import Fact
+from pwncat.modules.enumerate import EnumerateModule, Schedule
 from pwncat.platform.linux import Linux
-from pwncat.modules.enumerate import Schedule, EnumerateModule
 
 """
 TODO: This should realistically yield an ability (which can be used for

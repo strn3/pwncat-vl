@@ -3,9 +3,9 @@ from packaging.version import InvalidVersion, parse
 
 import pwncat
 from pwncat.facts import build_gtfo_ability
-from pwncat.gtfobins import Stream, Capability
+from pwncat.gtfobins import Capability, Stream
+from pwncat.modules.enumerate import EnumerateModule, Schedule
 from pwncat.platform.linux import Linux
-from pwncat.modules.enumerate import Schedule, EnumerateModule
 
 
 class Module(EnumerateModule):

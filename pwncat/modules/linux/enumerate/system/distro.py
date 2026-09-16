@@ -2,8 +2,8 @@
 
 
 from pwncat.facts import DistroVersionData
-from pwncat.platform.linux import Linux
 from pwncat.modules.enumerate import EnumerateModule
+from pwncat.platform.linux import Linux
 
 
 class Module(EnumerateModule):

@@ -17,7 +17,7 @@ implants located in ``pwncat/modules/linux/implant/``.
 """
 
 import pwncat
-from pwncat.modules import Status, BaseModule
+from pwncat.modules import BaseModule, Status
 
 
 class ImplantModule(BaseModule):

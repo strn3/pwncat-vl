@@ -1,4 +1,4 @@
-from pwncat.commands import Complete, Parameter, CommandDefinition
+from pwncat.commands import CommandDefinition, Complete, Parameter
 
 
 class Command(CommandDefinition):

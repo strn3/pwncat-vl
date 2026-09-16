@@ -4,8 +4,8 @@ import re
 import rich.markup
 
 from pwncat.db import Fact
-from pwncat.platform.linux import Linux
 from pwncat.modules.enumerate import EnumerateModule
+from pwncat.platform.linux import Linux
 
 
 class HostData(Fact):

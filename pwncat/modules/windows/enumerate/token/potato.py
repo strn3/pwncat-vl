@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 import pwncat
-from pwncat.modules import Status, ModuleFailed
 from pwncat.facts.windows import UserToken
-from pwncat.platform.windows import Windows, ProtocolError
-from pwncat.modules.enumerate import Scope, Schedule, EnumerateModule
+from pwncat.modules import ModuleFailed, Status
+from pwncat.modules.enumerate import EnumerateModule, Schedule, Scope
+from pwncat.platform.windows import ProtocolError, Windows
 
 
 class Module(EnumerateModule):

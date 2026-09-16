@@ -6,9 +6,9 @@ from __future__ import annotations
 import rich.markup
 
 from pwncat.db import Fact
-from pwncat.modules import Status, ModuleFailed
-from pwncat.platform.windows import Windows, PowershellError
-from pwncat.modules.enumerate import Scope, Schedule, EnumerateModule
+from pwncat.modules import ModuleFailed, Status
+from pwncat.modules.enumerate import EnumerateModule, Schedule, Scope
+from pwncat.platform.windows import PowershellError, Windows
 
 
 class ProcessData(Fact):

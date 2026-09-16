@@ -15,7 +15,7 @@ from typing import TextIO
 import paramiko
 from prompt_toolkit import prompt
 
-from pwncat.channel import Channel, ChannelError, ChannelClosed
+from pwncat.channel import Channel, ChannelClosed, ChannelError
 
 
 class Ssh(Channel):

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-import textwrap
 import subprocess
+import textwrap
 from io import StringIO
 
 from packaging.version import InvalidVersion, parse
@@ -8,9 +8,9 @@ from packaging.version import InvalidVersion, parse
 import pwncat
 from pwncat.facts import ExecuteAbility
 from pwncat.modules import ModuleFailed
-from pwncat.subprocess import CalledProcessError
+from pwncat.modules.enumerate import EnumerateModule, Schedule
 from pwncat.platform.linux import Linux
-from pwncat.modules.enumerate import Schedule, EnumerateModule
+from pwncat.subprocess import CalledProcessError
 
 
 class CVE_2021_4034(ExecuteAbility):

@@ -17,8 +17,8 @@ to the constructor for the appropriate channel type.
 from __future__ import annotations
 
 import time
-from io import DEFAULT_BUFFER_SIZE, RawIOBase, BufferedReader, BufferedWriter
 from abc import ABC, abstractmethod
+from io import DEFAULT_BUFFER_SIZE, BufferedReader, BufferedWriter, RawIOBase
 
 import pwncat
 
@@ -63,7 +63,7 @@ class ChannelClosed(ChannelError):
     def __init__(self, ch):
         super().__init__(ch, "channel unexpectedly closed")
 
-    def cleanup(self, manager: "pwncat.manager.Manager"):
+    def cleanup(self, manager: pwncat.manager.Manager):
         """Cleanup this channel from the manager"""
 
         # If we don't have a session, there's nothing to do
@@ -110,7 +110,7 @@ class ChannelFile(RawIOBase):
 
     def __init__(
         self,
-        channel: "Channel",
+        channel: Channel,
         mode: str,
         sof: bytes | None = None,
         eof: bytes | None = None,
@@ -613,12 +613,12 @@ def create(protocol: str | None = None, **kwargs) -> Channel:
                 raise
 
 
-from pwncat.channel.ssh import Ssh  # noqa: E402
-from pwncat.channel.bind import Bind  # noqa: E402
-from pwncat.channel.socket import Socket  # noqa: E402
-from pwncat.channel.connect import Connect  # noqa: E402
-from pwncat.channel.ssl_bind import SSLBind  # noqa: E402
-from pwncat.channel.ssl_connect import SSLConnect  # noqa: E402
+from pwncat.channel.bind import Bind
+from pwncat.channel.connect import Connect
+from pwncat.channel.socket import Socket
+from pwncat.channel.ssh import Ssh
+from pwncat.channel.ssl_bind import SSLBind
+from pwncat.channel.ssl_connect import SSLConnect
 
 register("socket", Socket)
 register("bind", Bind)

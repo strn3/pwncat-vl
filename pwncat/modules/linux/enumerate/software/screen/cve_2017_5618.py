@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-import textwrap
 import subprocess
+import textwrap
 from io import StringIO
 
 import pwncat
 from pwncat.facts import ExecuteAbility
 from pwncat.modules import ModuleFailed
+from pwncat.modules.enumerate import EnumerateModule, Schedule
 from pwncat.platform import PlatformError
-from pwncat.subprocess import CalledProcessError
 from pwncat.platform.linux import Linux
-from pwncat.modules.enumerate import Schedule, EnumerateModule
+from pwncat.subprocess import CalledProcessError
 
 
 class CVE_2017_5618(ExecuteAbility):

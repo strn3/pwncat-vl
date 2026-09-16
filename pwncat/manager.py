@@ -26,45 +26,45 @@ callback which receives the new session as an argument.
 
 from __future__ import annotations
 
+import contextlib
+import datetime
+import fnmatch
+import importlib.util
 import os
-import ssl
-import sys
+import pkgutil
 import queue
 import signal
 import socket
-import fnmatch
-import pkgutil
-import datetime
+import ssl
+import sys
 import tempfile
 import threading
-import contextlib
-import importlib.util
-from io import TextIOWrapper
-from enum import Enum, auto
 from collections.abc import Callable, Generator
+from enum import Enum, auto
+from io import TextIOWrapper
 
-import ZODB
-import rich.progress
 import persistent.list
+import rich.progress
+import ZODB
 import ZODB.FileStorage
 import ZODB.MappingStorage
 from cryptography import x509
-from cryptography.x509.oid import NameOID
-from prompt_toolkit.shortcuts import confirm
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
+from cryptography.x509.oid import NameOID
+from prompt_toolkit.shortcuts import confirm
 
 import pwncat.db
 import pwncat.facts
 import pwncat.modules
 import pwncat.modules.enumerate
-from pwncat.util import RawModeExit, console
-from pwncat.config import Config
-from pwncat.target import Target
-from pwncat.channel import Channel, ChannelError, ChannelClosed
+from pwncat.channel import Channel, ChannelClosed, ChannelError
 from pwncat.commands import CommandParser
-from pwncat.platform import Platform, PlatformError
+from pwncat.config import Config
 from pwncat.modules.enumerate import Scope
+from pwncat.platform import Platform, PlatformError
+from pwncat.target import Target
+from pwncat.util import RawModeExit, console
 
 
 class InteractiveExit(Exception):
@@ -115,12 +115,12 @@ class Listener(threading.Thread):
 
     def __init__(
         self,
-        manager: "Manager",
+        manager: Manager,
         address: tuple[str, int],
         protocol: str = "socket",
         platform: str | None = None,
         count: int | None = None,
-        established: Callable[["Session"], bool] | None = None,
+        established: Callable[[Session], bool] | None = None,
         ssl: bool = False,
         ssl_cert: str | None = None,
         ssl_key: str | None = None,
@@ -169,7 +169,7 @@ class Listener(threading.Thread):
     def iter_sessions(
         self,
         count: int | None = None,
-    ) -> Generator["Session", None, None]:
+    ) -> Generator[Session, None, None]:
         """
         Synchronously iterate over new sessions. This generated will
         yield sessions until no more sessions are found on the queue.
@@ -196,7 +196,7 @@ class Listener(threading.Thread):
     def iter_channels(
         self,
         count: int | None = None,
-    ) -> Generator["Channel", None, None]:
+    ) -> Generator[Channel, None, None]:
         """
         Synchronously iterate over new channels. This generated will
         yield channels until no more channels are found on the queue.
@@ -225,7 +225,7 @@ class Listener(threading.Thread):
         channel: pwncat.channel.Channel,
         platform: str,
         _queue_message: bool = False,
-    ) -> "pwncat.manager.Session":
+    ) -> pwncat.manager.Session:
         """
         Establish a session from an existing channel using the specified platform.
         If platform is None, then the given channel is placed onto the uninitialized
@@ -475,7 +475,7 @@ class Listener(threading.Thread):
         if raw_server is not None:
             raw_server.close()
 
-    def _bootstrap_channel(self, client: socket.socket) -> "pwncat.channel.Channel":
+    def _bootstrap_channel(self, client: socket.socket) -> pwncat.channel.Channel:
         """
         Create a channel with the listener parameters around the socket.
 
@@ -639,7 +639,7 @@ class Session:
 
     def register_fact(
         self,
-        fact: "pwncat.db.Fact",
+        fact: pwncat.db.Fact,
         scope: Scope = Scope.HOST,
         commit: bool = False,
     ):

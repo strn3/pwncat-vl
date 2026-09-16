@@ -4,9 +4,9 @@ from passlib.hash import sha512_crypt
 
 import pwncat
 from pwncat.facts import Implant, ImplantType
-from pwncat.modules import Status, Argument, ModuleFailed
-from pwncat.platform.linux import Linux
+from pwncat.modules import Argument, ModuleFailed, Status
 from pwncat.modules.implant import ImplantModule
+from pwncat.platform.linux import Linux
 
 
 class PasswdImplant(Implant):

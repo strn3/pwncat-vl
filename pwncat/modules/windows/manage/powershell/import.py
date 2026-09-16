@@ -5,7 +5,7 @@ from pathlib import Path
 import requests
 
 import pwncat
-from pwncat.modules import Bool, Argument, BaseModule, ModuleFailed
+from pwncat.modules import Argument, BaseModule, Bool, ModuleFailed
 from pwncat.platform.windows import Windows
 
 

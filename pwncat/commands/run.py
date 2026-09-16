@@ -3,8 +3,8 @@ import textwrap
 
 import pwncat
 import pwncat.modules
+from pwncat.commands import CommandDefinition, Complete, Parameter, get_module_choices
 from pwncat.util import console
-from pwncat.commands import Complete, Parameter, CommandDefinition, get_module_choices
 
 
 class Command(CommandDefinition):

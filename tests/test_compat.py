@@ -10,8 +10,8 @@ import os
 import tempfile
 from importlib.resources import files as _pkg_files
 
-import ZODB
 import psutil
+import ZODB
 import ZODB.FileStorage
 import ZODB.MappingStorage
 

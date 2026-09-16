@@ -11,7 +11,7 @@ the channel will listen on all interfaces (bound to ``0.0.0.0``).
 import errno
 import socket
 
-from rich.progress import Progress, BarColumn
+from rich.progress import BarColumn, Progress
 
 from pwncat.channel import ChannelError
 from pwncat.channel.socket import Socket

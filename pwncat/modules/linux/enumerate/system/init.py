@@ -3,8 +3,8 @@
 
 from pwncat import util
 from pwncat.db import Fact
-from pwncat.platform.linux import Linux
 from pwncat.modules.enumerate import EnumerateModule
+from pwncat.platform.linux import Linux
 
 
 class InitSystemData(Fact):

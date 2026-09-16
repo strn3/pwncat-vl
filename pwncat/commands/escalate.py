@@ -2,10 +2,10 @@
 import time
 
 import pwncat
-from pwncat.util import console
+from pwncat.commands import CommandDefinition, Complete, Parameter
 from pwncat.manager import Manager
 from pwncat.modules import ModuleFailed
-from pwncat.commands import Complete, Parameter, CommandDefinition
+from pwncat.util import console
 
 
 def get_user_choices(command: CommandDefinition):

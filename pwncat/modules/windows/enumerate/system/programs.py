@@ -5,8 +5,8 @@ import rich.markup
 
 from pwncat.db import Fact
 from pwncat.modules import ModuleFailed
-from pwncat.platform.windows import Windows, PowershellError
 from pwncat.modules.enumerate import EnumerateModule
+from pwncat.platform.windows import PowershellError, Windows
 
 
 class InstalledProgramData(Fact):

@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-import ssl
 import datetime
+import ssl
 import tempfile
 
 from cryptography import x509
-from cryptography.x509.oid import NameOID
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
+from cryptography.x509.oid import NameOID
 
 from pwncat.channel import ChannelError
 from pwncat.channel.bind import Bind

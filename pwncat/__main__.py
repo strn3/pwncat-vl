@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
-import sys
-import logging
 import argparse
 import importlib.metadata
+import logging
+import sys
 
 from rich import box
-from rich.table import Table
 from rich.progress import Progress, SpinnerColumn
+from rich.table import Table
 
 import pwncat.manager
-from pwncat.util import console
 from pwncat.channel import ChannelError
-from pwncat.modules import ModuleFailed
 from pwncat.commands import connect
+from pwncat.modules import ModuleFailed
 from pwncat.platform import PlatformError
+from pwncat.util import console
 
 
 def main():

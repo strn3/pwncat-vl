@@ -3,17 +3,17 @@ import os
 import time
 
 from rich.progress import (
-    Progress,
     BarColumn,
-    TextColumn,
+    Progress,
     SpinnerColumn,
+    TextColumn,
     TimeRemainingColumn,
 )
 
 import pwncat
 from pwncat import util
+from pwncat.commands import CommandDefinition, Complete, Parameter
 from pwncat.util import console
-from pwncat.commands import Complete, Parameter, CommandDefinition
 
 
 def download_file_base(remote_path, local_path):

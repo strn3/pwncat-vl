@@ -5,10 +5,10 @@ import rich.markup
 
 import pwncat
 from pwncat.db import Fact
-from pwncat.gtfobins import Stream
 from pwncat.facts.ability import build_gtfo_ability
+from pwncat.gtfobins import Stream
+from pwncat.modules.enumerate import EnumerateModule, Schedule
 from pwncat.platform.linux import Linux
-from pwncat.modules.enumerate import Schedule, EnumerateModule
 
 
 class Binary(Fact):

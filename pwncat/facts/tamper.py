@@ -45,7 +45,7 @@ class Tamper(Fact):
         """Test if this tamper is currently revertable"""
         return False
 
-    def revert(self, session: "pwncat.manager.Session"):
+    def revert(self, session: pwncat.manager.Session):
         """Attempt to revert the tamper through the given session.
 
         :param session: the session on which to operate
@@ -100,7 +100,7 @@ class ReplacedFile(Tamper):
         self.path = str(path)
         self.data = data
 
-    def revert(self, session: "pwncat.manager.Session"):
+    def revert(self, session: pwncat.manager.Session):
 
         if self.data is None:
             raise ModuleFailed("original data not preserved")
@@ -122,7 +122,7 @@ class ReplacedFile(Tamper):
             return False
         return True
 
-    def title(self, session: "pwncat.manager.Session"):
+    def title(self, session: pwncat.manager.Session):
 
         return self._annotate_title(
             session,
@@ -159,7 +159,7 @@ class CreatedFile(Tamper):
     def revertable(self):
         return True
 
-    def revert(self, session: "pwncat.manager.Session"):
+    def revert(self, session: pwncat.manager.Session):
 
         try:
             session.platform.Path(self.path).unlink()
@@ -170,7 +170,7 @@ class CreatedFile(Tamper):
 
         self.reverted = True
 
-    def title(self, session: "pwncat.manager.Session"):
+    def title(self, session: pwncat.manager.Session):
 
         return self._annotate_title(
             session,
@@ -207,7 +207,7 @@ class CreatedDirectory(Tamper):
     def revertable(self):
         return True
 
-    def revert(self, session: "pwncat.manager.Session"):
+    def revert(self, session: pwncat.manager.Session):
 
         try:
             session.platform.Path(self.path).rmdir()
@@ -216,7 +216,7 @@ class CreatedDirectory(Tamper):
 
         self.reverted = True
 
-    def title(self, session: "pwncat.manager.Session"):
+    def title(self, session: pwncat.manager.Session):
         return self._annotate_title(
             session,
             f"created directory at [cyan]{self.path}[cyan]",

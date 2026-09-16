@@ -3,8 +3,8 @@ from rich import box
 from rich.table import Table
 
 import pwncat
+from pwncat.commands import CommandDefinition, Complete, Parameter
 from pwncat.util import console
-from pwncat.commands import Complete, Parameter, CommandDefinition
 
 
 class Command(CommandDefinition):

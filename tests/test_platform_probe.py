@@ -5,8 +5,8 @@ from __future__ import annotations
 import time
 
 from pwncat.platform import (
-    probe_platform,
     _classify_probe_output,
+    probe_platform,
 )
 
 

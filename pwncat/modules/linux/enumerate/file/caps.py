@@ -4,8 +4,8 @@ import rich.markup
 
 import pwncat
 from pwncat.db import Fact
-from pwncat.platform.linux import Linux
 from pwncat.modules.enumerate import EnumerateModule
+from pwncat.platform.linux import Linux
 
 """
 TODO: Eventually, this should be used for escalation as well, because privilege

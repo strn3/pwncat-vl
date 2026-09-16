@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-import io
 import hashlib
+import io
 from importlib.resources import files as _pkg_files
 
 import pwncat
-from pwncat.facts import Implant, CreatedFile
-from pwncat.modules import Status, Argument, ModuleFailed
-from pwncat.platform import PlatformError
-from pwncat.subprocess import CalledProcessError
-from pwncat.platform.linux import Linux
+from pwncat.facts import CreatedFile, Implant
+from pwncat.modules import Argument, ModuleFailed, Status
 from pwncat.modules.implant import ImplantModule
+from pwncat.platform import PlatformError
+from pwncat.platform.linux import Linux
+from pwncat.subprocess import CalledProcessError
 
 
 class PamImplant(Implant):

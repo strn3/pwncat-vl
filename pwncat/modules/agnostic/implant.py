@@ -2,9 +2,9 @@
 
 from rich.prompt import Prompt
 
-from pwncat.util import console
 from pwncat.facts import Implant, KeepImplantFact
-from pwncat.modules import Bool, Status, Argument, BaseModule, ModuleFailed
+from pwncat.modules import Argument, BaseModule, Bool, ModuleFailed, Status
+from pwncat.util import console
 
 
 class Module(BaseModule):

@@ -4,17 +4,17 @@ pwncat-vl ExecuteAbility + Enumerator
 CVE-2025-32463  – sudo “-R” / NSS-preload LPE
 """
 
-import textwrap
 import subprocess
+import textwrap
 from io import StringIO
 
 from packaging.version import InvalidVersion, parse
 
 from pwncat.facts import ExecuteAbility
 from pwncat.modules import ModuleFailed
-from pwncat.subprocess import CalledProcessError
+from pwncat.modules.enumerate import EnumerateModule, Schedule
 from pwncat.platform.linux import Linux, PlatformError
-from pwncat.modules.enumerate import Schedule, EnumerateModule
+from pwncat.subprocess import CalledProcessError
 
 
 class CVE_2025_32463(ExecuteAbility):

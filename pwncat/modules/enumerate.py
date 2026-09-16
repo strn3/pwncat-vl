@@ -60,13 +60,13 @@ Example Enumerate Module
 
 """
 
-import typing
 import fnmatch
+import typing
 from enum import Enum, auto
 
 import pwncat
 from pwncat.db import Fact
-from pwncat.modules import List, Status, Argument, BaseModule
+from pwncat.modules import Argument, BaseModule, List, Status
 from pwncat.platform import Platform
 
 

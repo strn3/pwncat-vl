@@ -2,8 +2,8 @@
 from pathlib import Path
 
 import pwncat
-from pwncat.util import console
 from pwncat.commands import CommandDefinition
+from pwncat.util import console
 
 
 class Command(CommandDefinition):

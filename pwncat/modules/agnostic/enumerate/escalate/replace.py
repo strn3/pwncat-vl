@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 import pwncat
-from pwncat.facts import ExecuteAbility, EscalationReplace
-from pwncat.modules.enumerate import Schedule, EnumerateModule
+from pwncat.facts import EscalationReplace, ExecuteAbility
+from pwncat.modules.enumerate import EnumerateModule, Schedule
 
 
 class DirectReplaceAbility(EscalationReplace):

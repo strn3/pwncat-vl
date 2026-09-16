@@ -3,8 +3,8 @@ import os.path
 from importlib.resources import files as _pkg_files
 
 import pwncat
-from pwncat.modules import Result, Status, Argument, BaseModule, ModuleFailed
-from pwncat.platform.windows import Windows, PowershellError
+from pwncat.modules import Argument, BaseModule, ModuleFailed, Result, Status
+from pwncat.platform.windows import PowershellError, Windows
 
 
 class GroupInfo(Result):

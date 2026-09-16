@@ -1,9 +1,4 @@
 #!./env/bin/python
-import json
-import stat
-import time
-import shutil
-import subprocess
 
 import pwncat.manager
 import pwncat.platform.windows

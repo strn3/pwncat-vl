@@ -4,9 +4,9 @@ import pathlib
 
 import pwncat
 from pwncat.facts import PrivateKey
-from pwncat.modules import Status, Argument, ModuleFailed
-from pwncat.platform.linux import Linux
+from pwncat.modules import Argument, ModuleFailed, Status
 from pwncat.modules.implant import ImplantModule
+from pwncat.platform.linux import Linux
 
 
 class AuthorizedKeyImplant(PrivateKey):

@@ -34,11 +34,11 @@ Example Module
 
 from __future__ import annotations
 
-import inspect
 import functools
-from typing import Any
-from dataclasses import dataclass
+import inspect
 from collections.abc import Callable
+from dataclasses import dataclass
+from typing import Any
 
 import pwncat
 
@@ -315,7 +315,7 @@ class BaseModule(metaclass=BaseModuleMeta):
     """ If you want to use `yield Status(...)` to update the progress bar
     but only return one scalar value, setting this to true will collapse
     an array with only a single object to it's scalar value. """
-    PLATFORM: list[type["pwncat.platform.Platform"]] = []
+    PLATFORM: list[type[pwncat.platform.Platform]] = []
     """ The platform this module is compatible with (can be multiple) """
 
     def __init__(self):
@@ -325,7 +325,7 @@ class BaseModule(metaclass=BaseModuleMeta):
 
     def run(
         self,
-        session: "pwncat.manager.Session",
+        session: pwncat.manager.Session,
         progress: bool | None = None,
         **kwargs,
     ):

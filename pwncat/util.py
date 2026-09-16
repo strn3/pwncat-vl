@@ -4,17 +4,17 @@ Various utility methods and classes which don't fit in any other modules or pack
 
 from __future__ import annotations
 
-import os
-import re
-import sys
-import tty
 import fcntl
+import os
 import random
+import re
 import socket
 import string
+import sys
 import termios
-from io import TextIOWrapper
+import tty
 from enum import Enum, Flag, auto
+from io import TextIOWrapper
 
 import psutil
 from rich import markup

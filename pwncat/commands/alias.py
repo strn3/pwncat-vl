@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
+from pwncat.commands import CommandDefinition, Complete, Parameter
 from pwncat.util import console
-from pwncat.commands import Complete, Parameter, CommandDefinition
 
 
 class Command(CommandDefinition):

@@ -11,9 +11,9 @@ from __future__ import annotations
 
 import functools
 import subprocess
+from collections.abc import Callable
 from io import TextIOWrapper
 from typing import IO, Union
-from collections.abc import Callable
 
 import pwncat.subprocess
 from pwncat.db import Fact
@@ -24,10 +24,10 @@ from pwncat.platform.linux import LinuxReader, LinuxWriter
 def build_gtfo_ability(
     source: str,
     uid: int | str,
-    method: "pwncat.gtfobins.MethodWrapper",
+    method: pwncat.gtfobins.MethodWrapper,
     source_uid: int | str | None = None,
     **kwargs,
-) -> Union["GTFOFileRead", "GTFOFileWrite", "GTFOExecute"]:
+) -> Union[GTFOFileRead, GTFOFileWrite, GTFOExecute]:
     r"""Build a escalation ability from a GTFOBins method. This will return
     one of of the GTFO ability classes based on the capabilities exposed by
     the given GTFOBins method.
@@ -169,8 +169,8 @@ class ExecuteAbility(Fact):
 
     def shell(
         self,
-        session: "pwncat.manager.Session",
-    ) -> Callable[["pwncat.manager.Session"], None]:
+        session: pwncat.manager.Session,
+    ) -> Callable[[pwncat.manager.Session], None]:
         """Replace the current shell with a new shell as the identified user
 
         :param session: the session to operate on
@@ -201,7 +201,7 @@ class SpawnAbility(Fact):
         self.source_uid = source_uid
         self.uid = uid
 
-    def execute(self, session: "pwncat.manager.Session", command: str):
+    def execute(self, session: pwncat.manager.Session, command: str):
         """Utilize this ability to execute a command as a different user
 
         :param session: the session on which to operate
@@ -230,7 +230,7 @@ class GTFOFileRead(FileReadAbility):
         source: str,
         source_uid: int | str | None,
         uid: int | str,
-        method: "pwncat.gtfobins.MethodWrapper",
+        method: pwncat.gtfobins.MethodWrapper,
         **kwargs,
     ):
         super().__init__(source=source, source_uid=source_uid, uid=uid)
@@ -329,7 +329,7 @@ class GTFOFileWrite(FileWriteAbility):
         source: str,
         source_uid: int | str | None,
         uid: int | str,
-        method: "pwncat.gtfobins.MethodWrapper",
+        method: pwncat.gtfobins.MethodWrapper,
         **kwargs,
     ):
         super().__init__(source=source, source_uid=source_uid, uid=uid)
@@ -428,7 +428,7 @@ class GTFOExecute(ExecuteAbility):
         source: str,
         source_uid: int | str | None,
         uid: int | str,
-        method: "pwncat.gtfobins.MethodWrapper",
+        method: pwncat.gtfobins.MethodWrapper,
         **kwargs,
     ):
         super().__init__(source=source, source_uid=source_uid, uid=uid)

@@ -2,9 +2,9 @@
 import subprocess
 
 from pwncat.db import Fact
-from pwncat.util import Init
+from pwncat.modules.enumerate import EnumerateModule, Schedule
 from pwncat.platform.linux import Linux
-from pwncat.modules.enumerate import Schedule, EnumerateModule
+from pwncat.util import Init
 
 """
 TODO: This is weirdly inconsistent. Sometimes it works, other times it misses

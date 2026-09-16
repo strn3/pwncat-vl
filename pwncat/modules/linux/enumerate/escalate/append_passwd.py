@@ -3,12 +3,12 @@
 from passlib.hash import sha512_crypt
 
 import pwncat
-from pwncat.util import console
 from pwncat.facts import EscalationReplace
 from pwncat.modules import ModuleFailed
-from pwncat.platform.linux import Linux
-from pwncat.modules.enumerate import Schedule, EnumerateModule
+from pwncat.modules.enumerate import EnumerateModule, Schedule
 from pwncat.modules.linux.implant.passwd import PasswdImplant
+from pwncat.platform.linux import Linux
+from pwncat.util import console
 
 
 class AppendPasswd(EscalationReplace):

@@ -8,8 +8,8 @@ import rich.markup
 from pwncat.db import Fact
 from pwncat.facts import build_gtfo_ability
 from pwncat.gtfobins import Stream
+from pwncat.modules.enumerate import EnumerateModule, Schedule
 from pwncat.platform.linux import Linux
-from pwncat.modules.enumerate import Schedule, EnumerateModule
 
 """
 TODO: This should end up yielding an escalation ability, since sudo

@@ -6,11 +6,11 @@ from rich import box
 from rich.table import Table
 
 import pwncat
-from pwncat.util import console
 from pwncat.channel import ChannelError
+from pwncat.commands import CommandDefinition, Complete, Parameter
 from pwncat.modules import ModuleFailed
-from pwncat.commands import Complete, Parameter, CommandDefinition
 from pwncat.platform import PlatformError
+from pwncat.util import console
 
 
 class Command(CommandDefinition):

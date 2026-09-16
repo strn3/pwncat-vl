@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 from rich import box
-from rich.table import Table
 from rich.prompt import Prompt
+from rich.table import Table
 
 import pwncat
-from pwncat.util import console
+from pwncat.commands import CommandDefinition, Complete, Parameter
 from pwncat.manager import Listener, ListenerError, ListenerState
-from pwncat.commands import Complete, Parameter, CommandDefinition
+from pwncat.util import console
 
 
 class Command(CommandDefinition):

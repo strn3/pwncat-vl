@@ -3,8 +3,8 @@ import shlex
 import shutil
 
 import pwncat
-from pwncat.modules import Bool, List, Status, Argument, BaseModule, ModuleFailed
-from pwncat.platform.windows import Windows, PowershellError
+from pwncat.modules import Argument, BaseModule, Bool, List, ModuleFailed, Status
+from pwncat.platform.windows import PowershellError, Windows
 
 
 class Module(BaseModule):

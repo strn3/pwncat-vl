@@ -3,10 +3,10 @@
 from __future__ import annotations
 
 import pwncat
-from pwncat.modules import Status
 from pwncat.facts.windows import WindowsGroup
-from pwncat.platform.windows import Windows, PowershellError
-from pwncat.modules.enumerate import Schedule, EnumerateModule
+from pwncat.modules import Status
+from pwncat.modules.enumerate import EnumerateModule, Schedule
+from pwncat.platform.windows import PowershellError, Windows
 
 
 class DomainGroup(WindowsGroup):
@@ -32,7 +32,7 @@ class DomainGroup(WindowsGroup):
         self.distinguishedname: str | None = data.get("distinguishedname") or None
         self.objectcategory: str = data.get("objectcategory")
 
-    def title(self, session: "pwncat.manager.Session"):
+    def title(self, session: pwncat.manager.Session):
 
         members = []
         for uid in self.members:
@@ -55,7 +55,7 @@ class Module(EnumerateModule):
     PROVIDES = ["domain.group", "group"]
     SCHEDULE = Schedule.ONCE
 
-    def enumerate(self, session: "pwncat.manager.Session"):
+    def enumerate(self, session: pwncat.manager.Session):
         """Perform enumeration"""
 
         # Check that we are in a domain
