@@ -113,17 +113,14 @@ source venv/bin/activate
 pip install .
 ```
 
-For a development environment, `pwncat` uses Python Poetry. You can clone the
-repository locally and use Poetry to set up a development environment:
+For a development environment, `pwncat` uses uv. You can clone the repository
+locally and use uv to set up a locked development environment:
 
 ```shell
-# Setup pwncat-vl inside a poetry-managed virtual environment
+# Setup pwncat-vl inside a uv-managed virtual environment
 git clone https://github.com/Chocapikk/pwncat-vl.git
 cd pwncat-vl
-poetry install
-
-# Enter the virtual environment
-poetry shell
+uv sync --locked --dev
 ```
 
 ## Naming

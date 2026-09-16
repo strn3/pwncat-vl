@@ -81,34 +81,27 @@ cause issues while merging.
 
 ## Styling and Format
 
-The majority of pwncat is written in Python. We use `python-black` to format
-code in a consistent and readable manner. We recommend you install a Black
-plugin for your editor or IDE to ensure all code is formatted prior to
-opening a pull request.
-
-Beyond Black, you should also run `isort` and `flake8` within your branch
-prior to opening a pull request. `isort` will sort your imports to ensure
-they are easy to read. `flake8` will notify you of some common Python
-errors. pwncat has `flake8` and `isort` configurations, so the process is
-as simple as running the associated tool.
+The majority of pwncat is written in Python. We use Ruff to format code,
+sort imports, and check for common Python errors. Use uv to run the project
+tools in the locked development environment.
 
 Prior to creating a pull request, please run the following from the repository
 root to ensure formatting is in order:
 
 ```sh
-# Automatically fixes imports
-isort ./pwncat
-# Automatically fixes formatting
-black ./pwncat
-# Warns of errors or other syntax problems
-flake8
+# Install the locked development environment
+uv sync --locked --dev
+# Check and automatically fix lint errors
+uv run --locked ruff check . --fix
+# Check and automatically apply formatting
+uv run --locked ruff format .
 ```
 
 ## Testing Your Changes
 
 Testing pwncat is difficult. There are some unit tests implemented in `tests/`.
-These tests can be executed with `pytest`, but you must provide suitable targets
-for the testing framework. The `run-tests.sh` script uses `podman` to start two
+These tests can be executed with `uv run --locked pytest`, but you must provide
+suitable targets for the testing framework. The `run-tests.sh` script uses `podman` to start two
 containers to act as targets, and then runs all tests. One container is a Ubuntu
 machine with a bind shell and the other is a CentOS container with a bind shell.
 

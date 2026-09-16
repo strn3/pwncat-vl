@@ -16,18 +16,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          version: "0.12.15"
+
       - name: Set up Python 3.12
         uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
-      - name: Install Poetry
-        run: pip install poetry
-
       - name: Install and Build pwncat-vl Package
         run: |
-          poetry install
-          poetry build
+          uv sync --locked --no-dev
+          uv build
 
       - name: Publish Package to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
@@ -36,7 +38,7 @@ jobs:
 
       - name: Download and Archive Plugins
         run: |
-          poetry run pwncat-vl --download-plugins
+          uv run --locked --no-dev pwncat-vl --download-plugins
           tar czvf pwncat-plugins.tar.gz --transform='s|.*pwncat/||' ~/.local/share/pwncat/*
 
       - name: Extract Release Body

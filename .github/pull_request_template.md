@@ -2,7 +2,7 @@
 
 Fixes #XXX.
 
-**Please note any `noqa:` comments needed to appease flake8.**
+**Please note any `noqa:` comments needed to appease Ruff.**
 
 ## Major Changes Implemented:
 - 
@@ -10,10 +10,9 @@ Fixes #XXX.
 - 
 
 ## Pre-Merge Tasks
-- [ ] Formatted all modified files w/ `python-black`
-- [ ] Sorted imports for modified files w/ `isort`
-- [ ] Ran `flake8` on repo, and fixed any new problems w/ modified files
-- [ ] Ran `pytest` test cases
+- [ ] Ran `uv run --locked ruff check . --fix`
+- [ ] Ran `uv run --locked ruff format .`
+- [ ] Ran `uv run --locked pytest` test cases
 - [ ] Added brief summary of updates to CHANGELOG (under `[Unreleased]`)
 
 **For issues with pre-merge tasks, see CONTRIBUTING.md**

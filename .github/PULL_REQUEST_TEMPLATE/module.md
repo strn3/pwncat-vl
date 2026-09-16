@@ -34,7 +34,6 @@ environment doesn't match?*
 
 The following should be completed before opening a pull request:
 
-- `isort` any modified files.
-- `black` format any modified files
-- Correct any outstanding `flake8` errors.
-- Note any `noqa:` comments need in your PR to appease flake.
+- Run `uv run --locked ruff check . --fix`.
+- Run `uv run --locked ruff format .`.
+- Note any `noqa:` comments needed in your PR to appease Ruff.

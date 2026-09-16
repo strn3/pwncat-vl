@@ -59,9 +59,7 @@ pwncat-vl = "pwncat.__main__:main"
 
 [dependency-groups]
 dev = [
-    "isort>=5.13,<6",
     "pytest>=8.0,<9",
-    "flake8>=7.0,<8",
     "ruff>=0.7,<0.8",
 ]
 
