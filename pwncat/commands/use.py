@@ -22,7 +22,7 @@ class Command(CommandDefinition):
     def run(self, manager: "pwncat.manager.Manager", args):
 
         try:
-            module = list(manager.target.find_module(args.module, exact=True))[0]
+            module = next(iter(manager.target.find_module(args.module, exact=True)))
         except IndexError:
             console.log(f"[red]error[/red]: {args.module}: no such module")
             return

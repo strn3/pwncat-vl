@@ -244,10 +244,7 @@ class Path:
             return True
         if group.id == gid and (mode & stat.S_IWGRP):
             return True
-        if mode & stat.S_IWOTH:
-            return True
-
-        return False
+        return bool(mode & stat.S_IWOTH)
 
     def readable(self) -> bool:
         """Test if this file is readable based on the stat results and
@@ -268,10 +265,7 @@ class Path:
             return True
         if group.id == gid and (mode & stat.S_IRGRP):
             return True
-        if mode & stat.S_IROTH:
-            return True
-
-        return False
+        return bool(mode & stat.S_IROTH)
 
     def stat(self) -> os.stat_result:
         """Request file stat details"""
@@ -356,10 +350,7 @@ class Path:
         if str(self) == "/":
             return True
 
-        if self.parent.stat().st_dev != self.stat().st_dev:
-            return True
-
-        return False
+        return self.parent.stat().st_dev != self.stat().st_dev
 
     def is_symlink(self) -> bool:
         """Returns True if the path points to a symbolic link, False otherwise"""

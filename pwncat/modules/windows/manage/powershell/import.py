@@ -34,7 +34,7 @@ class Module(BaseModule):
     def resolve_psmodule(self, session: "pwncat.manager.Session", path: str):
         """Resolve a module name into a file-like object"""
 
-        if path.startswith("http://") or path.startswith("https://"):
+        if path.startswith(("http://", "https://")):
             # Load from a URL
             r = requests.get(path, stream=True)
             if r.status_code != 200:

@@ -96,7 +96,7 @@ class Module(BaseModule):
 
         # Use the result system so that other modules can query available groups
         if group == "list":
-            yield from (GroupInfo(name) for name in self.MODULES.keys())
+            yield from (GroupInfo(name) for name in self.MODULES)
             return
 
         # Ensure the user selected a valid group

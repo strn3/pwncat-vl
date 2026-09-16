@@ -151,7 +151,7 @@ class Method:
 
         # Check if we have any missing needed parameters, and no wildcard
         # was given
-        if any([not v for _, v in needed.items()]) and not has_wildcard:
+        if any(not v for _, v in needed.items()) and not has_wildcard:
             raise SudoNotPossible
 
         # Either we have all the arguments we need, or we have a wildcard

@@ -695,13 +695,12 @@ class Session:
                     or fnmatch.fnmatch(name, f"{self.platform.name}.{pattern}")
                 ):
                     yield module
-            elif exact:
-                if (
-                    name == pattern
-                    or name == f"agnostic.{pattern}"
-                    or name == f"{self.platform.name}.{pattern}"
-                ):
-                    yield module
+            elif exact and (
+                name == pattern
+                or name == f"agnostic.{pattern}"
+                or name == f"{self.platform.name}.{pattern}"
+            ):
+                yield module
 
     def log(self, *args, **kwargs):
         """Log to the console. This utilizes the active sessions

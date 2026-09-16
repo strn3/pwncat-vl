@@ -12,7 +12,6 @@ from __future__ import annotations
 
 import enum
 from collections.abc import Callable
-from typing import Union
 
 import pwncat
 from pwncat.db import Fact
@@ -59,7 +58,7 @@ class Implant(Fact):
     def escalate(
         self,
         session: pwncat.manager.Session,
-    ) -> Union[pwncat.manager.Session, Callable[[pwncat.manager.Session], None]]:
+    ) -> pwncat.manager.Session | Callable[[pwncat.manager.Session], None]:
         """
         Escalate to the target user locally. If the implant type is ``implant.replace``, this
         method should replace the current user context with the target user and return a

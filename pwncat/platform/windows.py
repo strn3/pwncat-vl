@@ -1268,7 +1268,7 @@ function prompt {
         result.st_mtime_ns = (
             float(props["LastWriteTimeUtc"].split("(")[1].split(")")[0]) * 1000000.0
         )
-        result.st_size = props["Length"] if "Length" in props else 0
+        result.st_size = props.get("Length", 0)
         result.st_dev = None
         result.st_nlink = None
         result.st_ino = None
@@ -1471,7 +1471,7 @@ function prompt {
         """
 
         try:
-            plugin = [plugin for plugin in self.plugins if name in plugin.names][0]
+            plugin = next(plugin for plugin in self.plugins if name in plugin.names)
             return plugin
         except IndexError:
             pass
@@ -1488,9 +1488,9 @@ function prompt {
 
         # Ensure we haven't loaded the same plugin under another name
         try:
-            plugin = [plugin for plugin in self.plugins if plugin.checksum == checksum][
-                0
-            ]
+            plugin = next(
+                plugin for plugin in self.plugins if plugin.checksum == checksum
+            )
             plugin.names.append(name)
             return plugin
         except IndexError:

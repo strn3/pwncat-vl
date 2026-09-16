@@ -118,9 +118,7 @@ class ReplacedFile(Tamper):
 
     @property
     def revertable(self):
-        if self.data is None:
-            return False
-        return True
+        return self.data is not None
 
     def title(self, session: pwncat.manager.Session):
 

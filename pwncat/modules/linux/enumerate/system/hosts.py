@@ -38,12 +38,16 @@ class Module(EnumerateModule):
                     line = line.replace("\t", " ")
                     # We don't care about localhost or localdomain entries
                     if (
-                        line.endswith("localhost")
-                        or line.endswith(".localdomain")
-                        or line.endswith("localhost6")
-                        or line.endswith(".localdomain")
-                        or line.endswith("localhost4")
-                        or line.endswith("localdomain4")
+                        line.endswith(
+                            (
+                                "localhost",
+                                ".localdomain",
+                                "localhost6",
+                                ".localdomain",
+                                "localhost4",
+                                "localdomain4",
+                            )
+                        )
                         or line == ""
                     ):
                         continue

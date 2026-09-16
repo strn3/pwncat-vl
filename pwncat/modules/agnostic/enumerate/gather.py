@@ -84,7 +84,7 @@ class Module(pwncat.modules.BaseModule):
         modules = set()
         for name in module_names:
             modules = modules | set(
-                list(session.find_module(f"enumerate.{name}", base=EnumerateModule)),
+                session.find_module(f"enumerate.{name}", base=EnumerateModule),
             )
 
         if exclude is not None and exclude:

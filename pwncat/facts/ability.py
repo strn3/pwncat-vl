@@ -13,7 +13,7 @@ import functools
 import subprocess
 from collections.abc import Callable
 from io import TextIOWrapper
-from typing import IO, Union
+from typing import IO
 
 import pwncat.subprocess
 from pwncat.db import Fact
@@ -27,7 +27,7 @@ def build_gtfo_ability(
     method: pwncat.gtfobins.MethodWrapper,
     source_uid: int | str | None = None,
     **kwargs,
-) -> Union[GTFOFileRead, GTFOFileWrite, GTFOExecute]:
+) -> GTFOFileRead | GTFOFileWrite | GTFOExecute:
     r"""Build a escalation ability from a GTFOBins method. This will return
     one of of the GTFO ability classes based on the capabilities exposed by
     the given GTFOBins method.

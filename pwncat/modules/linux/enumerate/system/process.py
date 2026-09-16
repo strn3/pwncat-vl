@@ -83,7 +83,7 @@ class Module(EnumerateModule):
             line = line.strip()
 
             # Skip header lines that slipped through (POSIX ps fallback)
-            if line.startswith("PID") or line.startswith("  PID"):
+            if line.startswith(("PID", "  PID")):
                 continue
 
             entities = line.split()

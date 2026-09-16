@@ -64,9 +64,6 @@ class Module(EnumerateModule):
                 value = " ".join(values[1:])
                 status[key] = value.strip()
 
-            if "SELinux status" in status:
-                state = status["SELinux status"]
-            else:
-                state = "unknown"
+            state = status.get("SELinux status", "unknown")
 
             yield SELinuxState(self.name, state, status)

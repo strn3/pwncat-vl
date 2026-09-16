@@ -34,14 +34,14 @@ class Module(BaseModule):
             kwargs["list"] = True
 
         # Look for matching implants
-        implants = list(
+        implants = [
             implant
             for implant in session.run("enumerate", types=["implant.*"])
             if not escalate
             or kwargs.get("list")
             or "implant.replace" in implant.types
             or "implant.spawn" in implant.types
-        )
+        ]
 
         if not implants:
             console.print("No installed implants.")

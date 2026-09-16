@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Optional
-
 import pwncat
 from pwncat.db import Fact
 
@@ -84,5 +82,5 @@ class EscalationStep(Fact):
     def execute(
         self,
         session: pwncat.manager.Session,
-    ) -> Optional[pwncat.manager.Session]:
+    ) -> pwncat.manager.Session | None:
         """Execute the escalation optionally returning a new session"""

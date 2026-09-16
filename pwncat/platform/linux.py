@@ -279,9 +279,7 @@ class LinuxReader(BufferedIOBase):
         self.name = name
 
     def readable(self):
-        if self.popen is None:
-            return False
-        return True
+        return self.popen is not None
 
     def writable(self):
         return False
@@ -527,16 +525,13 @@ class LinuxPath(pathlib.PurePosixPath):
         file_gid = self.stat().st_gid
         file_mode = self.stat().st_mode
 
-        if (
+        return bool(
             uid == file_uid
-            and (file_mode & stat.S_IRUSR)
+            and file_mode & stat.S_IRUSR
             or (gid == file_gid or file_gid in groups)
-            and (file_mode & stat.S_IRGRP)
+            and file_mode & stat.S_IRGRP
             or file_mode & stat.S_IROTH
-        ):
-            return True
-
-        return False
+        )
 
     def writable(self):
 
@@ -548,16 +543,13 @@ class LinuxPath(pathlib.PurePosixPath):
         file_gid = self.stat().st_gid
         file_mode = self.stat().st_mode
 
-        if (
+        return bool(
             uid == file_uid
-            and (file_mode & stat.S_IWUSR)
+            and file_mode & stat.S_IWUSR
             or (gid == file_gid or file_gid in groups)
-            and (file_mode & stat.S_IWGRP)
+            and file_mode & stat.S_IWGRP
             or file_mode & stat.S_IWOTH
-        ):
-            return True
-
-        return False
+        )
 
 
 class Linux(Platform):
@@ -997,8 +989,7 @@ class Linux(Platform):
         except CalledProcessError:
             return
 
-        for name in p.stdout.split("\n"):
-            yield name
+        yield from p.stdout.split("\n")
 
     def _do_custom_which(self, name: str):
         """This is custom which implementation that will not find built-in commands.
@@ -1867,7 +1858,7 @@ class Linux(Platform):
             return
 
         if not value:
-            command = " ; ".join([" stty -echo nl lnext ^V", "export PS1="]) + "\n"
+            command = " stty -echo nl lnext ^V ; export PS1=" + "\n"
             self.logger.info(command.rstrip("\n"))
             self.channel.send(command.encode("utf-8"))
             self.channel.drain()
@@ -1979,21 +1970,19 @@ class Linux(Platform):
             fields[1] = "0"
 
         stat = os.stat_result(
-            tuple(
-                [
-                    int(fields[12], 16),
-                    int(fields[8]),
-                    int(fields[9], 16),
-                    int(fields[7]),
-                    int(fields[11]),
-                    int(fields[10]),
-                    int(fields[14]),
-                    int(fields[4]),
-                    int(fields[3]),
-                    int(fields[2]),
-                    int(fields[13]),
-                    int(fields[1]),
-                ],
+            (
+                int(fields[12], 16),
+                int(fields[8]),
+                int(fields[9], 16),
+                int(fields[7]),
+                int(fields[11]),
+                int(fields[10]),
+                int(fields[14]),
+                int(fields[4]),
+                int(fields[3]),
+                int(fields[2]),
+                int(fields[13]),
+                int(fields[1]),
             ),
         )
 

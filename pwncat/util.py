@@ -341,7 +341,7 @@ def get_ip_addr() -> str:
 
     # look for a tun/tap interface
     for iface in ifaces:
-        if iface.startswith("tun") or iface.startswith("tap"):
+        if iface.startswith(("tun", "tap")):
             for snic in all_addrs[iface]:
                 if snic.family == socket.AF_INET and snic.address:
                     return snic.address

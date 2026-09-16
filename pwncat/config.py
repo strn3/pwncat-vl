@@ -41,7 +41,7 @@ def key_type(value: str) -> bytes:
         return value.encode("utf-8")
     if value not in ALL_KEYS:
         raise ValueError(f"invalid key: {value}")
-    key = [key for key in Keys if key.value == value][0]
+    key = next(key for key in Keys if key.value == value)
     return REVERSE_ANSI_SEQUENCES[key].encode("utf-8")
 
 
@@ -52,7 +52,7 @@ class KeyType:
         else:
             if name not in ALL_KEYS:
                 raise ValueError(f"{name}: invalid key")
-            key = [key for key in Keys if key.value == name][0]
+            key = next(key for key in Keys if key.value == name)
             self.value = REVERSE_ANSI_SEQUENCES[key].encode("utf-8")
         self.name = name
 

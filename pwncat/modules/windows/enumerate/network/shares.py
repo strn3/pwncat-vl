@@ -88,12 +88,12 @@ class Module(EnumerateModule):
 
                 (
                     _,
-                    access_mask,
-                    allow_maximum,
+                    _access_mask,
+                    _allow_maximum,
                     caption,
                     tag,
                     install_date,
-                    maximum_allowed,
+                    _maximum_allowed,
                     name,
                     path,
                     status,
