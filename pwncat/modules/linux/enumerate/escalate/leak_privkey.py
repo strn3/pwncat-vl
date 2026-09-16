@@ -22,7 +22,6 @@ class Module(EnumerateModule):
         already_leaked = []
 
         for ability in session.run("enumerate", types=["ability.file.read"]):
-
             if ability.uid == 0:
                 users = all_users
             else:
@@ -55,7 +54,9 @@ class Module(EnumerateModule):
 
                 try:
                     with ability.open(
-                        session, str(ssh_path / "id_rsa.pub"), "r",
+                        session,
+                        str(ssh_path / "id_rsa.pub"),
+                        "r",
                     ) as filp:
                         pubkey = filp.read()
                     if pubkey.strip() == "":
@@ -68,7 +69,9 @@ class Module(EnumerateModule):
                 if pubkey is not None and pubkey != "":
                     try:
                         with ability.open(
-                            session, str(ssh_path / "authorized_keys"), "r",
+                            session,
+                            str(ssh_path / "authorized_keys"),
+                            "r",
                         ) as filp:
                             authkeys = filp.read()
                         if authkeys.strip() == "":

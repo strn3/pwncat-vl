@@ -15,7 +15,9 @@ def get_user_choices(command: CommandDefinition):
     yield from (
         user.name
         for user in command.manager.target.run(
-            "enumerate", progress=False, types=["user"],
+            "enumerate",
+            progress=False,
+            types=["user"],
         )
     )
 
@@ -100,7 +102,6 @@ class Command(CommandDefinition):
         if args.command == "list":
             self.list_abilities(manager, args)
         elif args.command == "run":
-
             if args.user:
                 args.user = manager.target.find_user(name=args.user)
             else:
@@ -144,7 +145,6 @@ class Command(CommandDefinition):
         failed = []
 
         while True:
-
             # Grab the current user in the active session
             current_user = manager.target.current_user()
 
@@ -173,7 +173,8 @@ class Command(CommandDefinition):
             for escalation in (e for e in escalations if e.uid == user.id):
                 try:
                     original_session.update_task(
-                        task, status=f"attempting {escalation.title(manager.target)}",
+                        task,
+                        status=f"attempting {escalation.title(manager.target)}",
                     )
                     result = escalation.escalate(manager.target)
 
@@ -216,7 +217,8 @@ class Command(CommandDefinition):
             for escalation in (e for e in escalations if e.uid != user.id):
                 try:
                     original_session.update_task(
-                        task, status=f"attempting {escalation.title(manager.target)}",
+                        task,
+                        status=f"attempting {escalation.title(manager.target)}",
                     )
                     result = escalation.escalate(manager.target)
 

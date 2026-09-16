@@ -34,7 +34,11 @@ def download_file_base(remote_path, local_path):
 
 
 def download_file_recursive(
-    remote_path, local_path, task_id, progress, download_errors,
+    remote_path,
+    local_path,
+    task_id,
+    progress,
+    download_errors,
 ):
     """
     Download a file in recursive mode.
@@ -124,7 +128,9 @@ class Command(CommandDefinition):
         "source": Parameter(Complete.REMOTE_FILE),
         "destination": Parameter(Complete.LOCAL_FILE, nargs="?"),
         "--recursive": Parameter(
-            Complete.NONE, action="store_true", help="Recursively download directories",
+            Complete.NONE,
+            action="store_true",
+            help="Recursively download directories",
         ),
     }
 
@@ -159,7 +165,8 @@ class Command(CommandDefinition):
                     transient=True,
                 ) as listing_progress:
                     listing_progress.add_task(
-                        "Listing directories...", total=None,
+                        "Listing directories...",
+                        total=None,
                     )
                     directories, file_list, errors = get_all_entries(remote)
                     for err in errors:
@@ -190,7 +197,11 @@ class Command(CommandDefinition):
                         relative_path = os.path.relpath(str(file_entry), str(remote))
                         local_path = os.path.join(args.destination, relative_path)
                         error = download_file_recursive(
-                            file_entry, local_path, task_id, progress, download_errors,
+                            file_entry,
+                            local_path,
+                            task_id,
+                            progress,
+                            download_errors,
                         )
                         if error is None:
                             downloaded_count += 1
@@ -209,7 +220,8 @@ class Command(CommandDefinition):
                     args.destination = os.path.basename(args.source)
                 elif os.path.isdir(args.destination):
                     args.destination = os.path.join(
-                        args.destination, os.path.basename(args.source),
+                        args.destination,
+                        os.path.basename(args.source),
                     )
                 download_file_single(remote, args.destination)
         except (FileNotFoundError, PermissionError, IsADirectoryError) as exc:

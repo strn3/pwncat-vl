@@ -14,20 +14,20 @@ etc. A Channel class would look a lot like a socket, but would guarantee
 a consistent interface across C2 types.
 
 ```python
-
 class Channel:
-
     PLATFORM = Platform.UNKNOWN
-    
+
     def recv(self, count: Optional[int] = None):
         raise NotImplementedError
-    
+
     def send(self, data: bytes):
         raise NotImplementedError
-        
+
     @classmethod
-    def connect(cls, connection_string: str, port: int, platform: Platform) -> "Channel":
-        """ Called by the connect command. May look like:
+    def connect(
+        cls, connection_string: str, port: int, platform: Platform
+    ) -> "Channel":
+        """Called by the connect command. May look like:
         # Connect via ssh
         connect ssh user@host
         connect ssh -p 2222 user@host
@@ -40,7 +40,7 @@ class Channel:
         # Connect for specific platform
         connect -P windows host 4444
         connect bind -P linux -p 4444
-        
+
         Technically, the first positional parameter is the connection string
         and the second is the port number. You can also specify the port number
         with `-p` or `--port`. The positional syntax is more natural for raw
@@ -48,7 +48,6 @@ class Channel:
         bind sockets.
         """
         raise NotImplementedError
-
 ```
 
 ## Platform Abstraction
@@ -63,74 +62,87 @@ a similar syntax where it would look like `type(pwncat.victim) in module.PLATFOR
 
 ```python
 class Platform:
-    
     def __init__(self, channel: Channel):
         # Save the channel for future use
         self.channel = channel
-        
+
         # Set the prompt
         self.update_prompt()
-        
+
         # Spawn a pty if we don't have one
         if not self.has_pty():
             self.spawn_pty()
-            
+
     def has_pty(self) -> bool:
-        """ Check if the current shell has a PTY """
-        
+        """Check if the current shell has a PTY"""
+
     def spawn_pty(self):
-        """ Spawn a PTY in the current shell for full interactive features """
-        
+        """Spawn a PTY in the current shell for full interactive features"""
+
     def update_prompt(self):
-        """ Set the prompt for the current shell """
-    
+        """Set the prompt for the current shell"""
+
     def which(self, name: str) -> str:
-        """ Look up a binary on the remote host and return it's path """
-    
+        """Look up a binary on the remote host and return it's path"""
+
     def cd(self, directory: str):
-        """ Change directories """
-        
+        """Change directories"""
+
     def listdir(self, directory: str = None) -> Generator[int, None, None]:
-        """ Return a list of all items in the current directory """
-        
+        """Return a list of all items in the current directory"""
+
     def cwd(self) -> str:
-        """ Get the current working directory """
-        
+        """Get the current working directory"""
+
     def current_user(self) -> User:
-        """ Get a user object representing the current user """
-    
+        """Get a user object representing the current user"""
+
     def current_uid(self) -> int:
-        """ Get the current user id. This is faster than querying the whole user object """
-    
-    def open(self, path: str, mode: str, content_length: int) -> Union[TextIO, BinaryIO]:
-        """ Mimic built-in open function to open a remote file and return a stream. """
-        
-    def exec(self, argv: List[str], envp: List[str], stdout: str, stderr: str, stream: bool = False) -> Union[str, BinaryIO]:
-        """ Execute a remote binary and return the stdout. If stream is true, return a
-        file-like object where we can read the results. """
-        
-    def process(self, argv: List[str], envp: List[str], stdout: str, stderr: str) -> bytes:
-        """ Execute a remote binary, but do not wait for completion. Return string which
-        indicates the completion of the command """
-        
+        """Get the current user id. This is faster than querying the whole user object"""
+
+    def open(
+        self, path: str, mode: str, content_length: int
+    ) -> Union[TextIO, BinaryIO]:
+        """Mimic built-in open function to open a remote file and return a stream."""
+
+    def exec(
+        self,
+        argv: List[str],
+        envp: List[str],
+        stdout: str,
+        stderr: str,
+        stream: bool = False,
+    ) -> Union[str, BinaryIO]:
+        """Execute a remote binary and return the stdout. If stream is true, return a
+        file-like object where we can read the results."""
+
+    def process(
+        self, argv: List[str], envp: List[str], stdout: str, stderr: str
+    ) -> bytes:
+        """Execute a remote binary, but do not wait for completion. Return string which
+        indicates the completion of the command"""
+
+
 class Linux(Platform):
-    """ Implement the above abstract methods """ 
-    
+    """Implement the above abstract methods"""
+
+
 class Windows(Platform):
-    """ Implement the above abstract methods """
+    """Implement the above abstract methods"""
 ```
 
 With both channels and platforms implemented, the initialization would
 look something like this:
 
 ```python
-
 # Initialize scripting engine
 script_parser = pwncat.commands.Parser()
 
 # Run the connect command
 try:
-    script_parser.dispatch_line(shlex.join(["connect", *remaining_args]), command="pwncat")
+    script_parser.dispatch_line(
+        shlex.join(["connect", *remaining_args]), command="pwncat"
+    )
 except:
     # Connection failed
     exit(1)
@@ -177,9 +189,9 @@ for module in pwncat.modules.match(r"enumerate/.*"):
 
 # Install persistence
 pwncat.modules.match(r"persist/.*").run(
-    user = "root",
-    lhost = "10.0.0.1",
-    lport = "4444",
+    user="root",
+    lhost="10.0.0.1",
+    lport="4444",
 )
 ```
 
@@ -187,15 +199,14 @@ A module may look something like this:
 
 ```python
 class Module(BaseModule):
-    
     ARGUMENTS = {
-        "user": { "type": str, "default": None },
-        "lhost": { "type": ipaddress.ip_address },
-        "lport": { "type": int, "default": 4444 }
+        "user": {"type": str, "default": None},
+        "lhost": {"type": ipaddress.ip_address},
+        "lport": {"type": int, "default": 4444},
     }
-    
+
     def run(self, user, lhost, lport):
-        """ Install this persistence method """
+        """Install this persistence method"""
         return
 ```
 
@@ -235,7 +246,7 @@ for module in pwncat.modules.match("escalate/.*"):
         module.run(
             user=target_user,
             ignore_users=attempted_users,
-            ignore_modules=[m.name for m in attempted_modules]
+            ignore_modules=[m.name for m in attempted_modules],
         )
     except PrivescFailed as exc:
         attempted_modules.extend(exc.attempted_modules)

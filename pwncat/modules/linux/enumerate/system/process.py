@@ -64,7 +64,10 @@ class Module(EnumerateModule):
         for cmd in commands:
             try:
                 proc = session.platform.run(
-                    cmd, capture_output=True, text=True, check=True,
+                    cmd,
+                    capture_output=True,
+                    text=True,
+                    check=True,
                 )
                 if proc.stdout:
                     break

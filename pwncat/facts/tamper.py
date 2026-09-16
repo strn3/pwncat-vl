@@ -125,7 +125,8 @@ class ReplacedFile(Tamper):
     def title(self, session: "pwncat.manager.Session"):
 
         return self._annotate_title(
-            session, f"replace content of [cyan]{self.path}[/cyan]",
+            session,
+            f"replace content of [cyan]{self.path}[/cyan]",
         )
 
 
@@ -172,7 +173,8 @@ class CreatedFile(Tamper):
     def title(self, session: "pwncat.manager.Session"):
 
         return self._annotate_title(
-            session, f"created file at [cyan]{self.path}[/cyan]",
+            session,
+            f"created file at [cyan]{self.path}[/cyan]",
         )
 
 
@@ -216,5 +218,6 @@ class CreatedDirectory(Tamper):
 
     def title(self, session: "pwncat.manager.Session"):
         return self._annotate_title(
-            session, f"created directory at [cyan]{self.path}[cyan]",
+            session,
+            f"created directory at [cyan]{self.path}[cyan]",
         )

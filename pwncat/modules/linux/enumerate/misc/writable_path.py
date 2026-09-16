@@ -30,7 +30,6 @@ class Module(EnumerateModule):
     def enumerate(self, session):
 
         for path in session.platform.getenv("PATH").split(":"):
-
             # Ignore empty components
             if path == "":
                 continue

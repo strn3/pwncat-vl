@@ -20,7 +20,9 @@ class Module(BaseModule):
         "list": Argument(Bool, default=False, help="list installed implants"),
         "remove": Argument(Bool, default=False, help="remove installed implants"),
         "escalate": Argument(
-            Bool, default=False, help="escalate using an installed local implant",
+            Bool,
+            default=False,
+            help="escalate using an installed local implant",
         ),
     }
 

@@ -3,7 +3,6 @@ Linux specific facts which are used in multiple places throughout
 the framework.
 """
 
-
 from __future__ import annotations
 
 from pwncat.facts import User, Group

@@ -15,7 +15,12 @@ TODO: This should use csvreader.
 
 class HotfixData(Fact):
     def __init__(
-        self, source, caption: str, hotfixid: str, tag: str, installed_on: str,
+        self,
+        source,
+        caption: str,
+        hotfixid: str,
+        tag: str,
+        installed_on: str,
     ):
         super().__init__(source=source, types=["system.hotfixes"])
 

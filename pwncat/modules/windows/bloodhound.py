@@ -36,7 +36,8 @@ class Module(BaseModule):
             help="Limits computer collection to systems that have an operatingsystem attribute that matches *Windows",
         ),
         "ZipFilename": Argument(
-            str, help="Name for the zip file output by data collection",
+            str,
+            help="Name for the zip file output by data collection",
         ),
         "NoSaveCache": Argument(
             Bool,
@@ -44,10 +45,14 @@ class Module(BaseModule):
             help="Don't write the cache file to disk. Caching will still be performed in memory.",
         ),
         "EncryptZip": Argument(
-            Bool, default=None, help="Encrypt the zip file with a random password",
+            Bool,
+            default=None,
+            help="Encrypt the zip file with a random password",
         ),
         "InvalidateCache": Argument(
-            Bool, default=None, help="Invalidate and rebuild the cache file",
+            Bool,
+            default=None,
+            help="Invalidate and rebuild the cache file",
         ),
         "SearchBase": Argument(
             str,
@@ -85,13 +90,19 @@ class Module(BaseModule):
             help="Username for connecting to LDAP. Use this if you're using a non-domain account for connecting to computers",
         ),
         "LdapPassword": Argument(
-            str, default=None, help="Password for connecting to LDAP",
+            str,
+            default=None,
+            help="Password for connecting to LDAP",
         ),
         "SkipPortScan": Argument(
-            Bool, default=None, help="Skip SMB port checks when connecting to computers",
+            Bool,
+            default=None,
+            help="Skip SMB port checks when connecting to computers",
         ),
         "PortScanTimeout": Argument(
-            int, default=None, help="Timeout for SMB port checks",
+            int,
+            default=None,
+            help="Timeout for SMB port checks",
         ),
         "ExcludeDomainControllers": Argument(
             Bool,
@@ -99,11 +110,15 @@ class Module(BaseModule):
             help="Exclude domain controllers from enumeration (useful to avoid Microsoft ATP/ATA)",
         ),
         "Throttle": Argument(
-            int, default=None, help="Throttle requests to computers (in milliseconds)",
+            int,
+            default=None,
+            help="Throttle requests to computers (in milliseconds)",
         ),
         "Jitter": Argument(int, default=None, help="Add jitter to throttle"),
         "OverrideUserName": Argument(
-            str, default=None, help="Override username to filter for NetSessionEnum",
+            str,
+            default=None,
+            help="Override username to filter for NetSessionEnum",
         ),
         "NoRegistryLoggedOn": Argument(
             Bool,
@@ -116,19 +131,29 @@ class Module(BaseModule):
             help="Dumps error codes from attempts to connect to computers",
         ),
         "RealDNSName": Argument(
-            str, default=None, help="Overrides the DNS name used for API calls",
+            str,
+            default=None,
+            help="Overrides the DNS name used for API calls",
         ),
         "CollectAllProperties": Argument(
-            Bool, default=None, help="Collect all string LDAP properties on objects",
+            Bool,
+            default=None,
+            help="Collect all string LDAP properties on objects",
         ),
         "StatusInterval": Argument(
-            int, default=None, help="Interval for displaying status in milliseconds",
+            int,
+            default=None,
+            help="Interval for displaying status in milliseconds",
         ),
         "Loop": Argument(
-            Bool, default=None, help="Perform looping for computer collection",
+            Bool,
+            default=None,
+            help="Perform looping for computer collection",
         ),
         "LoopDuration": Argument(
-            str, default=None, help="Duration to perform looping (default: 02:00:00)",
+            str,
+            default=None,
+            help="Duration to perform looping (default: 02:00:00)",
         ),
         "LoopInterval": Argument(
             str,
@@ -202,7 +227,9 @@ class Module(BaseModule):
                 except FileNotFoundError:
                     pass
                 raise ModuleFailed(f"permission error: {output_path}") from exc
-            raise ModuleFailed("bloodhound failed or access to output was denied") from exc
+            raise ModuleFailed(
+                "bloodhound failed or access to output was denied"
+            ) from exc
 
         # Delete the zip from the target
         yield Status("deleting collected results from target")

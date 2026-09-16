@@ -10,7 +10,6 @@ import pwncat.platform.windows
 
 # Create a manager
 with pwncat.manager.Manager("data/pwncatrc") as manager:
-
     # Tell the manager to create verbose sessions that
     # log all commands executed on the remote host
     # manager.config.set("verbose", True, glob=True)

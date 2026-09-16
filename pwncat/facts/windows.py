@@ -77,7 +77,8 @@ class UserToken(ExecuteAbility):
         return f"[blue]{user_name}[/blue] Token: {self.token}"
 
     def shell(
-        self, session: "pwncat.manager.Session",
+        self,
+        session: "pwncat.manager.Session",
     ) -> Callable[["pwncat.manager.Session"], None]:
         """Execute a new shell as the specified user. In this case, just impersonate the user."""
 
@@ -150,7 +151,11 @@ class WindowsUser(User):
         well_known: bool = False,
     ):
         super().__init__(
-            source=source, name=name, uid=uid, password=password, hash=hash,
+            source=source,
+            name=name,
+            uid=uid,
+            password=password,
+            hash=hash,
         )
 
         self.account_expires: datetime | None = account_expires

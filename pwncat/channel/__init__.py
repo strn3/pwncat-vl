@@ -389,7 +389,6 @@ class Channel(ABC):
 
         # We read one byte at a time so we don't overshoot the goal
         while not data.endswith(needle):
-
             # Check if we have timed out
             if time.time() >= time_end:
                 raise ChannelTimeout(self, data)

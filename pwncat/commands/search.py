@@ -53,7 +53,9 @@ class Command(CommandDefinition):
             table.add_row(
                 f"[cyan]{module_name}[/cyan]",
                 textwrap.shorten(
-                    description.replace("\n", " "), width=80, placeholder="...",
+                    description.replace("\n", " "),
+                    width=80,
+                    placeholder="...",
                 ),
             )
 

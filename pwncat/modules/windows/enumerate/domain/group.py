@@ -83,13 +83,12 @@ class Module(EnumerateModule):
             groups = [groups]
 
         for group in groups:
-
             try:
                 yield Status(
                     f"[cyan]{group['samaccountname']}[/cyan]: requesting members",
                 )
                 members = session.platform.powershell(
-                    f"Get-DomainGroupMember \"{group['samaccountname']}\"",
+                    f'Get-DomainGroupMember "{group["samaccountname"]}"',
                 )[0]
 
                 if isinstance(members, dict):
@@ -101,5 +100,8 @@ class Module(EnumerateModule):
             members = [member["MemberSID"] for member in members]
 
             yield DomainGroup(
-                self.name, domain=domain["Name"], data=group, members=members,
+                self.name,
+                domain=domain["Name"],
+                data=group,
+                members=members,
             )

@@ -7,7 +7,6 @@ on how to create persistent classes, please see the ZODB
 documentation.
 """
 
-
 from __future__ import annotations
 
 import persistent

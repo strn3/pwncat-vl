@@ -2,11 +2,11 @@ from pwncat.commands import Complete, Parameter, CommandDefinition
 
 
 class Command(CommandDefinition):
-
     PROG = "shortcut"
     ARGS = {
         "prefix": Parameter(
-            Complete.NONE, help="the prefix character used for the shortcut",
+            Complete.NONE,
+            help="the prefix character used for the shortcut",
         ),
         "command": Parameter(Complete.NONE, help="the command to execute"),
     }

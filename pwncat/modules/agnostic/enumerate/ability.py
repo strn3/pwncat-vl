@@ -81,6 +81,7 @@ class EscalationStep(Fact):
         self.uid = uid
 
     def execute(
-        self, session: "pwncat.manager.Session",
+        self,
+        session: "pwncat.manager.Session",
     ) -> Optional["pwncat.manager.Session"]:
         """Execute the escalation optionally returning a new session"""

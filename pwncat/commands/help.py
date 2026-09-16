@@ -48,7 +48,8 @@ class Command(CommandDefinition):
                     doc = ""
                 else:
                     doc = textwrap.shorten(
-                        textwrap.dedent(doc).strip().replace("\n", ""), 60,
+                        textwrap.dedent(doc).strip().replace("\n", ""),
+                        60,
                     )
 
                 table.add_row(command.PROG, doc)

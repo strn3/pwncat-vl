@@ -342,7 +342,9 @@ class PrivateKey(Implant):
         return lambda session: session.platform.channel.send(b"exit\n")
 
     def trigger(
-        self, manager: "pwncat.manager.Manager", target: "pwncat.target.Target",
+        self,
+        manager: "pwncat.manager.Manager",
+        target: "pwncat.target.Target",
     ):
         """Connect remotely to this target with the specified user and key"""
 
@@ -394,7 +396,8 @@ class EscalationReplace(Fact):
         self.uid = uid
 
     def escalate(
-        self, session: "pwncat.manager.Session",
+        self,
+        session: "pwncat.manager.Session",
     ) -> Callable[["pwncat.manager.Session"], None]:
         """Execute the escalation optionally returning a new session
 

@@ -230,7 +230,6 @@ def run_decorator(real_run):
             session.showing_progress = progress
 
         try:
-
             # Return the result
             result_object = real_run(self, session, **kwargs)
 

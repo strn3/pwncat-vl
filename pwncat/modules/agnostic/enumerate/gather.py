@@ -59,7 +59,9 @@ class Module(pwncat.modules.BaseModule):
             help="List of enumeration types to collect (default: all)",
         ),
         "clear": pwncat.modules.Argument(
-            bool, default=False, help="Clear the cached results of all matching modules",
+            bool,
+            default=False,
+            help="Clear the cached results of all matching modules",
         ),
         "cache": pwncat.modules.Argument(
             bool,
@@ -118,7 +120,6 @@ class Module(pwncat.modules.BaseModule):
                         yield Status(fact.title(session))
 
         for module in modules:
-
             if types:
                 for pattern in types:
                     for typ in module.PROVIDES:

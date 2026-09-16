@@ -58,7 +58,6 @@ class Access(Flag):
 
 
 class Init(Enum):
-
     UNKNOWN = auto()
     SYSTEMD = auto()
     UPSTART = auto()
@@ -78,7 +77,10 @@ class CompilationError(Exception):
     """
 
     def __init__(
-        self, source_error: bool, stdout: str | None, stderr: str | None,
+        self,
+        source_error: bool,
+        stdout: str | None,
+        stderr: str | None,
     ):
         self.source_error = source_error
         self.stdout = stdout

@@ -154,11 +154,15 @@ def probe_platform(channel, timeout: float = 3.0) -> str | None:
     #                      stream (often dropped by raw shells), so we rely on
     #                      this success-stream output to spot PowerShell.
     probe = (
-        b"echo " + start + b"\n"
+        b"echo "
+        + start
+        + b"\n"
         + b"uname\n"
         + b"ver\n"
         + b"$PSVersionTable\n"
-        + b"echo " + end + b"\n"
+        + b"echo "
+        + end
+        + b"\n"
     )
 
     try:
@@ -231,7 +235,12 @@ class Path:
         uid = self.stat().st_uid
         gid = self.stat().st_gid
 
-        if uid == user.id and (mode & stat.S_IWUSR) or group.id == gid and (mode & stat.S_IWGRP):
+        if (
+            uid == user.id
+            and (mode & stat.S_IWUSR)
+            or group.id == gid
+            and (mode & stat.S_IWGRP)
+        ):
             return True
         if group.id == gid and (mode & stat.S_IWGRP):
             return True
@@ -250,7 +259,12 @@ class Path:
         uid = self.stat().st_uid
         gid = self.stat().st_gid
 
-        if uid == user.id and (mode & stat.S_IRUSR) or group.id == gid and (mode & stat.S_IRGRP):
+        if (
+            uid == user.id
+            and (mode & stat.S_IRUSR)
+            or group.id == gid
+            and (mode & stat.S_IRGRP)
+        ):
             return True
         if group.id == gid and (mode & stat.S_IRGRP):
             return True
@@ -296,10 +310,12 @@ class Path:
 
         if self.parts[0] == "~":
             return self.__class__(
-                self._target.find_user(self._target.whoami()).homedir, *self.parts[1:],
+                self._target.find_user(self._target.whoami()).homedir,
+                *self.parts[1:],
             )
         return self.__class__(
-            self._target.find_user(self.parts[0][1:]).homedir, *self.parts[1:],
+            self._target.find_user(self.parts[0][1:]).homedir,
+            *self.parts[1:],
         )
 
     def glob(self, pattern: str) -> Generator["Path", None, None]:
@@ -639,7 +655,9 @@ class Platform(ABC):
         # output log to a file
         if log is not None:
             handler = logging.handlers.RotatingFileHandler(
-                log, maxBytes=1024 * 1024 * 100, backupCount=5,
+                log,
+                maxBytes=1024 * 1024 * 100,
+                backupCount=5,
             )
             handler.setFormatter(logging.Formatter("%(asctime)s - %(message)s"))
             self.logger.addHandler(handler)
@@ -950,7 +968,10 @@ class Platform(ABC):
         stdout, stderr = p.communicate(input=input, timeout=timeout)
 
         completed_proc = pwncat.subprocess.CompletedProcess(
-            args, p.returncode, stdout, stderr,
+            args,
+            p.returncode,
+            stdout,
+            stderr,
         )
 
         if check:
@@ -995,7 +1016,10 @@ class Platform(ABC):
 
     @abstractmethod
     def tempfile(
-        self, mode: str, length: int | None = None, suffix: str | None = None,
+        self,
+        mode: str,
+        length: int | None = None,
+        suffix: str | None = None,
     ):
         """
         Create a temporary file on the remote host and open it with the specified mode.

@@ -54,12 +54,16 @@ class Command(CommandDefinition):
             started = time.time()
             with progress:
                 task_id = progress.add_task(
-                    "upload", filename=args.destination, total=length, start=False,
+                    "upload",
+                    filename=args.destination,
+                    total=length,
+                    start=False,
                 )
 
                 with open(args.source, "rb") as source:
                     with manager.target.platform.open(
-                        args.destination, "wb",
+                        args.destination,
+                        "wb",
                     ) as destination:
                         progress.start_task(task_id)
                         copyfileobj(

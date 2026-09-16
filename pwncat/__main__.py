@@ -25,7 +25,10 @@ def main():
         description="""Start interactive pwncat session and optionally connect to existing victim via a known platform and channel type. This entrypoint can also be used to list known implants on previous targets.""",
     )
     parser.add_argument(
-        "--version", "-v", action="store_true", help="Show version number and exit",
+        "--version",
+        "-v",
+        action="store_true",
+        help="Show version number and exit",
     )
     parser.add_argument(
         "--download-plugins",
@@ -111,7 +114,6 @@ def main():
 
     # Create the session manager
     with pwncat.manager.Manager(args.config) as manager:
-
         if args.verbose:
             # set the config variable `verbose` to `True` (globally)
             manager.config.set("verbose", True, True)
@@ -119,14 +121,14 @@ def main():
         if args.download_plugins:
             for plugin_info in pwncat.platform.Windows.PLUGIN_INFO:
                 with pwncat.platform.Windows.open_plugin(
-                    manager, plugin_info.provides[0],
+                    manager,
+                    plugin_info.provides[0],
                 ):
                     pass
 
             return
 
         if args.list:
-
             db = manager.db.open()
             implants = []
 
@@ -141,7 +143,6 @@ def main():
 
             # Locate all installed implants
             for target in db.root.targets:
-
                 # Collect users
                 users = {}
                 for fact in target.facts:
@@ -302,7 +303,6 @@ def main():
 
                 # Locate all installed implants
                 for target in db.root.targets:
-
                     if (
                         target.guid != query_args["host"]
                         and target.public_address[0] != query_args["host"]
@@ -381,7 +381,8 @@ def main():
                 # Close each session based on its ``session_id``
                 for session_id in session_ids:
                     progress.update(
-                        task, status=str(manager.sessions[session_id].platform),
+                        task,
+                        status=str(manager.sessions[session_id].platform),
                     )
                     manager.sessions[session_id].close()
 
@@ -389,7 +390,6 @@ def main():
 
 
 if __name__ == "__main__":
-
     main()
 
     sys.exit(0)

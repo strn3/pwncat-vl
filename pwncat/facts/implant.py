@@ -57,7 +57,8 @@ class Implant(Fact):
         self.uid = uid
 
     def escalate(
-        self, session: "pwncat.manager.Session",
+        self,
+        session: "pwncat.manager.Session",
     ) -> Union["pwncat.manager.Session", Callable[["pwncat.manager.Session"], None]]:
         """
         Escalate to the target user locally. If the implant type is ``implant.replace``, this

@@ -336,7 +336,11 @@ class Binary:
             self.caps |= method_cap
 
     def iter_methods(
-        self, binary_path: str, caps: Capability, stream: Stream, spec: str = None,
+        self,
+        binary_path: str,
+        caps: Capability,
+        stream: Stream,
+        spec: str = None,
     ):
         """Iterate over methods in this binary matching the capability and stream
         masks"""
@@ -422,7 +426,11 @@ class GTFOBins:
             binary_path = shlex.split(spec.rstrip("*"))[0]
 
             yield from self.iter_binary(
-                binary_path, caps, stream, spec=spec, **kwargs,
+                binary_path,
+                caps,
+                stream,
+                spec=spec,
+                **kwargs,
             )
         else:
             # We can run any w/ this spec. This becomes the same as calling
@@ -460,7 +468,10 @@ class GTFOBins:
             return
 
         yield from self.binaries[binary_name].iter_methods(
-            binary_path, caps, stream, spec,
+            binary_path,
+            caps,
+            stream,
+            spec,
         )
 
     def iter_methods(

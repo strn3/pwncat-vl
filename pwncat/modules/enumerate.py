@@ -258,7 +258,6 @@ class EnumerateModule(BaseModule):
             return
 
         for item in self.enumerate(session):
-
             # Allow non-fact status updates
             if isinstance(item, Status):
                 yield item
@@ -283,7 +282,8 @@ class EnumerateModule(BaseModule):
         self._mark_complete(session)
 
     def enumerate(
-        self, session: "pwncat.manager.Session",
+        self,
+        session: "pwncat.manager.Session",
     ) -> typing.Generator[Fact, None, None]:
         """Enumerate facts according to the types listed in ``PROVIDES``.
 

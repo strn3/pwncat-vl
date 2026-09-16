@@ -46,7 +46,11 @@ def build_gtfo_ability(
 
     if method.cap == Capability.READ:
         return GTFOFileRead(
-            source=source, source_uid=source_uid, uid=uid, method=method, **kwargs,
+            source=source,
+            source_uid=source_uid,
+            uid=uid,
+            method=method,
+            **kwargs,
         )
     if method.cap == Capability.WRITE:
         return GTFOFileWrite(
@@ -59,7 +63,11 @@ def build_gtfo_ability(
         )
     if method.cap == Capability.SHELL:
         return GTFOExecute(
-            source=source, source_uid=source_uid, uid=uid, method=method, **kwargs,
+            source=source,
+            source_uid=source_uid,
+            uid=uid,
+            method=method,
+            **kwargs,
         )
 
 
@@ -75,7 +83,10 @@ class FileReadAbility(Fact):
     """
 
     def __init__(
-        self, source: str, source_uid: int | str | None, uid: int | str,
+        self,
+        source: str,
+        source_uid: int | str | None,
+        uid: int | str,
     ):
         super().__init__(types=["ability.file.read"], source=source)
 
@@ -109,7 +120,10 @@ class FileWriteAbility(Fact):
     """
 
     def __init__(
-        self, source: str, source_uid: int | str | None, uid: int | str,
+        self,
+        source: str,
+        source_uid: int | str | None,
+        uid: int | str,
     ):
         super().__init__(types=["ability.file.write"], source=source)
 
@@ -143,7 +157,10 @@ class ExecuteAbility(Fact):
     """
 
     def __init__(
-        self, source: str, source_uid: int | str | None, uid: int | str,
+        self,
+        source: str,
+        source_uid: int | str | None,
+        uid: int | str,
     ):
         super().__init__(types=["ability.execute"], source=source)
 
@@ -151,7 +168,8 @@ class ExecuteAbility(Fact):
         self.uid = uid
 
     def shell(
-        self, session: "pwncat.manager.Session",
+        self,
+        session: "pwncat.manager.Session",
     ) -> Callable[["pwncat.manager.Session"], None]:
         """Replace the current shell with a new shell as the identified user
 
@@ -173,7 +191,10 @@ class SpawnAbility(Fact):
     """
 
     def __init__(
-        self, source: str, source_uid: int | str | None, uid: int | str,
+        self,
+        source: str,
+        source_uid: int | str | None,
+        uid: int | str,
     ):
         super().__init__(types=["ability.spawn"], source=source)
 
@@ -234,7 +255,9 @@ class GTFOFileRead(FileReadAbility):
 
         # Build the payload
         payload, input_data, exit_cmd = self.method.build(
-            gtfo=session.platform.gtfo, lfile=path, **self.kwargs,
+            gtfo=session.platform.gtfo,
+            lfile=path,
+            **self.kwargs,
         )
 
         # Send the command to the victim with the input and setup stdio pipes
@@ -331,7 +354,9 @@ class GTFOFileWrite(FileWriteAbility):
 
         # Build the payload
         payload, input_data, exit_cmd = self.method.build(
-            gtfo=session.platform.gtfo, lfile=path, **self.kwargs,
+            gtfo=session.platform.gtfo,
+            lfile=path,
+            **self.kwargs,
         )
 
         # Send the command to the victim with the input and setup stdio pipes
@@ -427,7 +452,9 @@ class GTFOExecute(ExecuteAbility):
         """Emulate the `platform.run` method for execution as another user"""
 
         return session.platform.run(
-            *args, **kwargs, popen_class=functools.partial(self.Popen, session),
+            *args,
+            **kwargs,
+            popen_class=functools.partial(self.Popen, session),
         )
 
     def shell(self, session):
@@ -442,7 +469,9 @@ class GTFOExecute(ExecuteAbility):
 
         # Construct the GTFObins payload
         payload, input_data, exit_cmd = self.method.build(
-            gtfo=session.platform.gtfo, shell=full_command, **self.kwargs,
+            gtfo=session.platform.gtfo,
+            shell=full_command,
+            **self.kwargs,
         )
 
         # Send the payload

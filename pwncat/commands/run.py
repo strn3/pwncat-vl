@@ -25,10 +25,14 @@ class Command(CommandDefinition):
     PROG = "run"
     ARGS = {
         "--raw,-r": Parameter(
-            Complete.NONE, action="store_true", help="Display raw results unformatted",
+            Complete.NONE,
+            action="store_true",
+            help="Display raw results unformatted",
         ),
         "--traceback,-t": Parameter(
-            Complete.NONE, action="store_true", help="Show traceback for module errors",
+            Complete.NONE,
+            action="store_true",
+            help="Show traceback for module errors",
         ),
         "module": Parameter(
             Complete.CHOICES,
@@ -95,7 +99,6 @@ class Command(CommandDefinition):
         if args.raw:
             console.print(result)
         else:
-
             if result is None or (isinstance(result, list) and not result):
                 console.log(f"Module [bold]{module_name}[/bold] completed successfully")
                 return

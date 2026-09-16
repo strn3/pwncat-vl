@@ -94,7 +94,10 @@ class Module(EnumerateModule):
 
         # Grab the uname output
         output = session.platform.run(
-            "uname -s -n -r -m -o", capture_output=True, text=True, check=True,
+            "uname -s -n -r -m -o",
+            capture_output=True,
+            text=True,
+            check=True,
         )
 
         fields = output.stdout.split(" ")

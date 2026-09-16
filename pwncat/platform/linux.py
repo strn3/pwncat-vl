@@ -78,7 +78,10 @@ class PopenLinux(pwncat.subprocess.Popen):
         # We create a stdout pipe regardless. This is how we
         # track whether the process has completed.
         self.stdout_raw = platform.channel.makefile(
-            "r", bufsize=bufsize, sof=start_delim, eof=end_delim,
+            "r",
+            bufsize=bufsize,
+            sof=start_delim,
+            eof=end_delim,
         )
 
         if text or encoding is not None or errors is not None:
@@ -97,7 +100,10 @@ class PopenLinux(pwncat.subprocess.Popen):
             self.stdin_raw = platform.channel.makefile("w")
             if text or encoding is not None or errors is not None:
                 self.stdin = TextIOWrapper(
-                    self.stdin_raw, encoding=encoding, errors=errors, write_through=True,
+                    self.stdin_raw,
+                    encoding=encoding,
+                    errors=errors,
+                    write_through=True,
                 )
             else:
                 self.stdin = self.stdin_raw
@@ -436,7 +442,6 @@ class LinuxWriter(BufferedIOBase):
             # Control sequences need escaping
             translated = []
             for idx, c in enumerate(b):
-
                 # Track when the last new line was
                 if c == 0x0A:
                     self.since_newline = 0
@@ -522,7 +527,13 @@ class LinuxPath(pathlib.PurePosixPath):
         file_gid = self.stat().st_gid
         file_mode = self.stat().st_mode
 
-        if uid == file_uid and (file_mode & stat.S_IRUSR) or (gid == file_gid or file_gid in groups) and (file_mode & stat.S_IRGRP) or file_mode & stat.S_IROTH:
+        if (
+            uid == file_uid
+            and (file_mode & stat.S_IRUSR)
+            or (gid == file_gid or file_gid in groups)
+            and (file_mode & stat.S_IRGRP)
+            or file_mode & stat.S_IROTH
+        ):
             return True
 
         return False
@@ -537,7 +548,13 @@ class LinuxPath(pathlib.PurePosixPath):
         file_gid = self.stat().st_gid
         file_mode = self.stat().st_mode
 
-        if uid == file_uid and (file_mode & stat.S_IWUSR) or (gid == file_gid or file_gid in groups) and (file_mode & stat.S_IWGRP) or file_mode & stat.S_IWOTH:
+        if (
+            uid == file_uid
+            and (file_mode & stat.S_IWUSR)
+            or (gid == file_gid or file_gid in groups)
+            and (file_mode & stat.S_IWGRP)
+            or file_mode & stat.S_IWOTH
+        ):
             return True
 
         return False
@@ -579,7 +596,8 @@ class Linux(Platform):
         # Load a GTFOBins database to assist in common operations
         # without relying on specific binaries being available.
         self.gtfo = GTFOBins(
-            str(_pkg_files("pwncat").joinpath("data/gtfobins.json")), self.which,
+            str(_pkg_files("pwncat").joinpath("data/gtfobins.json")),
+            self.which,
         )
 
         # Drain any shell startup output (e.g. "bash: no job control",
@@ -712,7 +730,8 @@ class Linux(Platform):
                     continue
 
                 payload = payload_format.format(
-                    binary_path=binary_path, shell=self.shell,
+                    binary_path=binary_path,
+                    shell=self.shell,
                 )
 
                 # Send the payload
@@ -783,7 +802,9 @@ class Linux(Platform):
                 f"chmod +x {path}/.pwncat_exec_test && "
                 f"{path}/.pwncat_exec_test 2>/dev/null; "
                 f"rm -f {path}/.pwncat_exec_test",
-                shell=True, capture_output=True, text=True,
+                shell=True,
+                capture_output=True,
+                text=True,
             )
             if "OK" in result.stdout:
                 return path
@@ -799,7 +820,10 @@ class Linux(Platform):
         try:
             # Detect remote architecture
             result = self.run(
-                "uname -m", shell=True, capture_output=True, text=True,
+                "uname -m",
+                shell=True,
+                capture_output=True,
+                text=True,
             )
             arch = result.stdout.strip()
             helper_name = self.PTY_HELPER_ARCH_MAP.get(arch)
@@ -808,9 +832,8 @@ class Linux(Platform):
                 return False
 
             # Load the embedded binary
-            helper_path = (
-                _pkg_files("pwncat")
-                .joinpath("data", "pty_helper", helper_name)
+            helper_path = _pkg_files("pwncat").joinpath(
+                "data", "pty_helper", helper_name
             )
             if not helper_path.is_file():
                 self.session.log(f"pty_helper binary not found: {helper_name}")
@@ -830,21 +853,24 @@ class Linux(Platform):
             # Upload via base64 in chunks
             self.run(
                 f"cat /dev/null > {remote_path}.b64",
-                shell=True, capture_output=True,
+                shell=True,
+                capture_output=True,
             )
 
             chunk_size = 4096
             for i in range(0, len(b64_data), chunk_size):
-                chunk = b64_data[i:i + chunk_size]
+                chunk = b64_data[i : i + chunk_size]
                 self.run(
                     f"echo -n '{chunk}' >> {remote_path}.b64",
-                    shell=True, capture_output=True,
+                    shell=True,
+                    capture_output=True,
                 )
 
             self.run(
                 f"base64 -d {remote_path}.b64 > {remote_path} && "
                 f"chmod +x {remote_path} && rm -f {remote_path}.b64",
-                shell=True, capture_output=True,
+                shell=True,
+                capture_output=True,
             )
 
             # Execute pty_helper directly (same as script/python methods).
@@ -853,7 +879,9 @@ class Linux(Platform):
             # self.shell may resolve to /bin/busybox via /proc/pid/exe
             # which doesn't work as a direct shell invocation.
             pty_shell = "/bin/sh"
-            payload = f" (sleep 2; rm -f {remote_path}) & {remote_path} {pty_shell} 2>&1"
+            payload = (
+                f" (sleep 2; rm -f {remote_path}) & {remote_path} {pty_shell} 2>&1"
+            )
             self.logger.info(payload)
             self.channel.sendline(payload.encode("utf-8"))
 
@@ -883,10 +911,15 @@ class Linux(Platform):
         with self.session.task("calculating host hash") as task:
             try:
                 self.session.update_task(
-                    task, status="retrieving hostname (hostname -f)",
+                    task,
+                    status="retrieving hostname (hostname -f)",
                 )
                 result = self.run(
-                    "hostname -f", shell=True, check=True, text=True, encoding="utf-8",
+                    "hostname -f",
+                    shell=True,
+                    check=True,
+                    text=True,
+                    encoding="utf-8",
                 )
                 hostname = result.stdout.strip()
             except CalledProcessError:
@@ -894,10 +927,15 @@ class Linux(Platform):
 
             try:
                 self.session.update_task(
-                    task, status="retrieving mac addresses (ifconfig)",
+                    task,
+                    status="retrieving mac addresses (ifconfig)",
                 )
                 result = self.run(
-                    "ifconfig -a", shell=True, check=True, text=True, encoding="utf-8",
+                    "ifconfig -a",
+                    shell=True,
+                    check=True,
+                    text=True,
+                    encoding="utf-8",
                 )
                 ifconfig = result.stdout.strip().lower()
 
@@ -914,7 +952,8 @@ class Linux(Platform):
                 # Attempt to use the `ip` command instead
                 try:
                     self.session.update_task(
-                        task, status="retrieving mac addresses (ip link show)",
+                        task,
+                        status="retrieving mac addresses (ip link show)",
                     )
                     result = self.run(
                         "ip link show",
@@ -996,7 +1035,10 @@ class Linux(Platform):
 
         try:
             result = self.run(
-                ["which", name], text=True, capture_output=True, check=True,
+                ["which", name],
+                text=True,
+                capture_output=True,
+                check=True,
             )
             return result.stdout.rstrip("\n")
         except CalledProcessError:
@@ -1125,7 +1167,9 @@ class Linux(Platform):
                     real_sources.append(source)
                 else:
                     with tempfile.NamedTemporaryFile(
-                        mode="w", suffix=".c", delete=False,
+                        mode="w",
+                        suffix=".c",
+                        delete=False,
                     ) as filp:
                         filp.write(source.read())
                         real_sources.append(filp.name)
@@ -1225,7 +1269,9 @@ class Linux(Platform):
                 for source in real_sources:
                     self.session.register_fact(
                         CreatedFile(
-                            source="platform.compile", uid=self.getuid(), path=source,
+                            source="platform.compile",
+                            uid=self.getuid(),
+                            path=source,
                         ),
                     )
 
@@ -1443,13 +1489,15 @@ class Linux(Platform):
             buffering = -1
 
         if "w" in mode:
-
             for method in self.gtfo.iter_methods(
-                caps=Capability.WRITE, stream=Stream.RAW,
+                caps=Capability.WRITE,
+                stream=Stream.RAW,
             ):
                 try:
                     payload, input_data, exit_cmd = method.build(
-                        gtfo=self.gtfo, lfile=path, suid=True,
+                        gtfo=self.gtfo,
+                        lfile=path,
+                        suid=True,
                     )
                     break
                 except MissingBinary:
@@ -1474,11 +1522,14 @@ class Linux(Platform):
             )
         else:
             for method in self.gtfo.iter_methods(
-                caps=Capability.READ, stream=Stream.RAW,
+                caps=Capability.READ,
+                stream=Stream.RAW,
             ):
                 try:
                     payload, input_data, exit_cmd = method.build(
-                        gtfo=self.gtfo, lfile=path, suid=True,
+                        gtfo=self.gtfo,
+                        lfile=path,
+                        suid=True,
                     )
                     break
                 except MissingBinary:
@@ -1610,12 +1661,14 @@ class Linux(Platform):
 
         # Run `su`
         proc = self.Popen(
-            ["su", user], stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True,
+            ["su", user],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            text=True,
         )
 
         # Assume we don't need a password if we are root
         if current_user.id != 0:
-
             # Read password: prompt
             proc.stdout.read(10)
 
@@ -1632,7 +1685,6 @@ class Linux(Platform):
 
             # Check for keywords indicating failure
             if b"su: " in result.lower():
-
                 try:
                     # The call failed, wait for the result
                     proc.wait(timeout=5)
@@ -1734,7 +1786,6 @@ class Linux(Platform):
 
         # There's no password to deliver. It either succeeded or failed :shrug:
         if password is None:
-
             output = self.channel.peek(16, timeout=1).lower()
             if output == "sudo: a password":
                 # Cleanup the process
@@ -1755,7 +1806,6 @@ class Linux(Platform):
             or output.endswith(b"password: ")
             or b"lecture" in output
         ):
-
             # Drain remaining data in the socket (and peek buffer)
             self.channel.drain()
 
@@ -1826,7 +1876,6 @@ class Linux(Platform):
             # update current user and shell variable
             self.context_changed()
         else:
-
             # Going interactive requires a pty
             self.get_pty()
 
@@ -1838,7 +1887,8 @@ class Linux(Platform):
                 columns, rows = 80, 24
 
             prompt = self.PROMPTS.get(
-                os.path.basename(self.shell), self.PROMPTS["default"],
+                os.path.basename(self.shell),
+                self.PROMPTS["default"],
             )
 
             # Drain any remaining output from the commands run by pwncat
@@ -1889,7 +1939,10 @@ class Linux(Platform):
         """Get the name of the current user"""
 
         return self.run(
-            ["whoami"], capture_output=True, check=True, encoding="utf-8",
+            ["whoami"],
+            capture_output=True,
+            check=True,
+            encoding="utf-8",
         ).stdout.rstrip("\n")
 
     def _parse_stat(self, result: str) -> os.stat_result:
@@ -2001,7 +2054,10 @@ class Linux(Platform):
 
         try:
             result = self.run(
-                ["realpath", path], capture_output=True, text=True, check=True,
+                ["realpath", path],
+                capture_output=True,
+                text=True,
+                check=True,
             )
             return result.stdout.rstrip("\n")
         except CalledProcessError as exc:
@@ -2013,7 +2069,10 @@ class Linux(Platform):
         try:
             self.lstat(path)
             result = self.run(
-                ["readlink", path], capture_output=True, text=True, check=True,
+                ["readlink", path],
+                capture_output=True,
+                text=True,
+                check=True,
             )
             return result.stdout.rstrip("\n")
         except CalledProcessError as exc:

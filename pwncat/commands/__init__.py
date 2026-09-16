@@ -570,7 +570,6 @@ class CommandParser:
 
         while running:
             try:
-
                 if self.manager.config.module:
                     self.prompt.message = [
                         (
@@ -786,7 +785,9 @@ class CommandParser:
             return
 
         termios.tcsetattr(
-            sys.stdin.fileno(), termios.TCSADRAIN, self.saved_term_state[0],
+            sys.stdin.fileno(),
+            termios.TCSADRAIN,
+            self.saved_term_state[0],
         )
         # tty.setcbreak(sys.stdin)
         fcntl.fcntl(sys.stdin, fcntl.F_SETFL, self.saved_term_state[1])
@@ -907,7 +908,9 @@ class CommandCompleter(Completer):
     command definitions and their associated argument definitions."""
 
     def __init__(
-        self, manager: "pwncat.manager.Manager", commands: list["CommandDefinition"],
+        self,
+        manager: "pwncat.manager.Manager",
+        commands: list["CommandDefinition"],
     ):
         """Construct a new command completer"""
 
@@ -942,7 +945,9 @@ class CommandCompleter(Completer):
         self.completer = WordCompleter(list(self.layers))
 
     def get_completions(
-        self, document: Document, complete_event: CompleteEvent,
+        self,
+        document: Document,
+        complete_event: CompleteEvent,
     ) -> Iterable[Completion]:
         """Get a list of completions for the given document"""
 

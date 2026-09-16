@@ -29,7 +29,7 @@ class FakeChannel:
         self.sent += data
 
     def recv(self, n: int = 4096):
-        remaining = self.response[self._cursor:]
+        remaining = self.response[self._cursor :]
         if not remaining:
             time.sleep(0.01)
             return b""
@@ -60,7 +60,10 @@ def test_classify_powershell_error():
 
 
 def test_classify_cmd_ver_output():
-    assert _classify_probe_output(b"Microsoft Windows [Version 10.0.19045.4651]") == "windows"
+    assert (
+        _classify_probe_output(b"Microsoft Windows [Version 10.0.19045.4651]")
+        == "windows"
+    )
 
 
 def test_classify_windows_wins_when_both_markers_present():

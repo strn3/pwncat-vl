@@ -142,7 +142,8 @@ def load_private_key(identity: str | TextIO, passphrase: str = None):
     try:
         if isinstance(identity, str):
             return paramiko.pkey.load_private_key_file(
-                os.path.expanduser(identity), password=passphrase,
+                os.path.expanduser(identity),
+                password=passphrase,
             )
 
         identity.seek(0)

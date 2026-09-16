@@ -167,7 +167,8 @@ class Listener(threading.Thread):
         return self._channel_queue.qsize()
 
     def iter_sessions(
-        self, count: int | None = None,
+        self,
+        count: int | None = None,
     ) -> Generator["Session", None, None]:
         """
         Synchronously iterate over new sessions. This generated will
@@ -193,7 +194,8 @@ class Listener(threading.Thread):
                 return
 
     def iter_channels(
-        self, count: int | None = None,
+        self,
+        count: int | None = None,
     ) -> Generator["Channel", None, None]:
         """
         Synchronously iterate over new channels. This generated will
@@ -241,7 +243,6 @@ class Listener(threading.Thread):
         """
 
         with self._session_lock:
-
             if self.count is not None and self.count <= 0:
                 raise ListenerError("listener max connections reached")
 
@@ -384,7 +385,9 @@ class Listener(threading.Thread):
         # Create a listener
         try:
             server = socket.create_server(
-                self.address, reuse_port=True, backlog=self.count,
+                self.address,
+                reuse_port=True,
+                backlog=self.count,
             )
 
             return server
@@ -424,7 +427,8 @@ class Listener(threading.Thread):
                     [
                         x509.NameAttribute(NameOID.COUNTRY_NAME, "US"),
                         x509.NameAttribute(
-                            NameOID.STATE_OR_PROVINCE_NAME, "California",
+                            NameOID.STATE_OR_PROVINCE_NAME,
+                            "California",
                         ),
                         x509.NameAttribute(NameOID.LOCALITY_NAME, "San Francisco"),
                         x509.NameAttribute(NameOID.ORGANIZATION_NAME, "My Company"),
@@ -439,7 +443,8 @@ class Listener(threading.Thread):
                     .serial_number(x509.random_serial_number())
                     .not_valid_before(datetime.datetime.now(datetime.timezone.utc))
                     .not_valid_after(
-                        datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=365),
+                        datetime.datetime.now(datetime.timezone.utc)
+                        + datetime.timedelta(days=365),
                     )
                     .add_extension(
                         x509.SubjectAlternativeName([x509.DNSName("localhost")]),
@@ -926,7 +931,7 @@ class Manager:
         if uri == "memory://" or uri == "memory:":
             storage = ZODB.MappingStorage.MappingStorage()
         elif uri.startswith("file://"):
-            path = uri[len("file://"):]
+            path = uri[len("file://") :]
             storage = ZODB.FileStorage.FileStorage(path)
         else:
             raise ValueError(
@@ -967,7 +972,8 @@ class Manager:
         """
 
         for finder, module_name, is_pkg in pkgutil.walk_packages(
-            paths, prefix="pwncat.modules.",
+            paths,
+            prefix="pwncat.modules.",
         ):
             # Already loaded — reuse it
             if module_name in sys.modules:
@@ -1055,15 +1061,12 @@ class Manager:
         )
 
         while self.interactive_running:
-
             try:
-
                 # This is it's own main loop that will continue until
                 # it catches a C-d sequence.
                 try:
                     self.parser.run()
                 except InteractiveExit:
-
                     if self.sessions and not confirm(
                         "There are active sessions. Are you sure?",
                     ):
@@ -1095,7 +1098,8 @@ class Manager:
                 output_thread = None
 
                 def output_thread_main(
-                    target: Session, exception_queue: queue.SimpleQueue,
+                    target: Session,
+                    exception_queue: queue.SimpleQueue,
                 ):
 
                     while not interactive_complete.is_set():
@@ -1124,7 +1128,8 @@ class Manager:
 
                     exception_queue = queue.Queue(maxsize=1)
                     output_thread = threading.Thread(
-                        target=output_thread_main, args=[self.target, exception_queue],
+                        target=output_thread_main,
+                        args=[self.target, exception_queue],
                     )
                     output_thread.start()
 

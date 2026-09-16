@@ -123,7 +123,9 @@ class Module(EnumerateModule):
             if (
                 "-R"
                 not in session.platform.run(
-                    ["sudo", "-h"], capture_output=True, check=True,
+                    ["sudo", "-h"],
+                    capture_output=True,
+                    check=True,
                 ).stdout.decode()
             ):
                 return

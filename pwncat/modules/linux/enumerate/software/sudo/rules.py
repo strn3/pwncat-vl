@@ -210,7 +210,6 @@ class Module(EnumerateModule):
                         rules.append(rule)
 
                 for rule in rules:
-
                     # We can't handle abilities which we didn't parse properly
                     if not rule.matched:
                         continue
@@ -241,7 +240,8 @@ class Module(EnumerateModule):
                                 user=runas_user.name,
                             )
                             for method in session.platform.gtfo.iter_sudo(
-                                spec, stream=Stream.RAW,
+                                spec,
+                                stream=Stream.RAW,
                             )
                         )
 
@@ -251,7 +251,6 @@ class Module(EnumerateModule):
 
         # Check for our privileges
         try:
-
             current_user = session.current_user()
 
             proc = session.platform.sudo(["sudo", "-nl"], as_is=True, text=True)
@@ -309,6 +308,7 @@ class Module(EnumerateModule):
                         source_uid=current_user.id,
                     )
                     for method in session.platform.gtfo.iter_sudo(
-                        spec, stream=Stream.RAW,
+                        spec,
+                        stream=Stream.RAW,
                     )
                 )

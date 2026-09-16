@@ -41,7 +41,9 @@ class Command(CommandDefinition):
             help="the variable name to modify",
         ),
         "value": Parameter(
-            Complete.LOCAL_FILE, nargs="?", help="the value for the given variable",
+            Complete.LOCAL_FILE,
+            nargs="?",
+            help="the value for the given variable",
         ),
     }
     LOCAL = True
@@ -82,7 +84,9 @@ class Command(CommandDefinition):
                         raise ValueError("cannot change database with running session")
                     if args.variable in manager.config:
                         manager.config.set(
-                            args.variable, args.value, getattr(args, "global"),
+                            args.variable,
+                            args.value,
+                            getattr(args, "global"),
                         )
                     else:
                         console.log(

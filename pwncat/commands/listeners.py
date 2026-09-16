@@ -24,10 +24,14 @@ class Command(CommandDefinition):
             help="Show all listeners when listing (default: hide stopped)",
         ),
         "--kill,-k": Parameter(
-            Complete.NONE, action="store_true", help="Stop the given listener",
+            Complete.NONE,
+            action="store_true",
+            help="Stop the given listener",
         ),
         "--init,-i": Parameter(
-            Complete.NONE, action="store_true", help="Initialize pending channels",
+            Complete.NONE,
+            action="store_true",
+            help="Initialize pending channels",
         ),
         "id": Parameter(
             Complete.NONE,
@@ -185,7 +189,6 @@ class Command(CommandDefinition):
         )
 
         for ident, listener in enumerate(manager.listeners):
-
             if listener.state is ListenerState.STOPPED and not args.all:
                 continue
 

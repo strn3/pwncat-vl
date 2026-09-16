@@ -69,10 +69,13 @@ class Command(CommandDefinition):
             help="Certificate for SSL-encrypted listeners (PEM)",
         ),
         "--ssl-key": Parameter(
-            Complete.LOCAL_FILE, help="Key for SSL-encrypted listeners (PEM)",
+            Complete.LOCAL_FILE,
+            help="Key for SSL-encrypted listeners (PEM)",
         ),
         "--ssl": Parameter(
-            Complete.NONE, action="store_true", help="Connect or listen with SSL",
+            Complete.NONE,
+            action="store_true",
+            help="Connect or listen with SSL",
         ),
         "connection_string": Parameter(
             Complete.NONE,
@@ -109,7 +112,6 @@ class Command(CommandDefinition):
         used_implant = None
 
         if args.list:
-
             db = manager.db.open()
             implants = []
 
@@ -124,7 +126,6 @@ class Command(CommandDefinition):
 
             # Locate all installed implants
             for target in db.root.targets:
-
                 # Collect users
                 users = {}
                 for fact in target.facts:
@@ -248,7 +249,6 @@ class Command(CommandDefinition):
 
             # Locate all installed implants
             for target in db.root.targets:
-
                 if (
                     target.guid != query_args["host"]
                     and target.public_address[0] != query_args["host"]
