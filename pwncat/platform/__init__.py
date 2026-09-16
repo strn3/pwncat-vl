@@ -47,8 +47,6 @@ from rich.logging import RichHandler
 import pwncat
 import pwncat.channel
 import pwncat.subprocess
-from pwncat.platform.linux import Linux
-from pwncat.platform.windows import Windows
 
 PLATFORM_TYPES = {}
 """ A dictionary of platform names mapping to their class
@@ -1199,5 +1197,12 @@ def create(
     return find(platform)(channel, log)
 
 
-register(Linux)
-register(Windows)
+def _register_builtin_platforms():
+    from pwncat.platform.linux import Linux
+    from pwncat.platform.windows import Windows
+
+    register(Linux)
+    register(Windows)
+
+
+_register_builtin_platforms()

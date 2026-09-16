@@ -21,12 +21,6 @@ from abc import ABC, abstractmethod
 from io import DEFAULT_BUFFER_SIZE, BufferedReader, BufferedWriter, RawIOBase
 
 import pwncat
-from pwncat.channel.bind import Bind
-from pwncat.channel.connect import Connect
-from pwncat.channel.socket import Socket
-from pwncat.channel.ssh import Ssh
-from pwncat.channel.ssl_bind import SSLBind
-from pwncat.channel.ssl_connect import SSLConnect
 
 CHANNEL_TYPES = {}
 
@@ -619,9 +613,20 @@ def create(protocol: str | None = None, **kwargs) -> Channel:
                 raise
 
 
-register("socket", Socket)
-register("bind", Bind)
-register("connect", Connect)
-register("ssh", Ssh)
-register("ssl-bind", SSLBind)
-register("ssl-connect", SSLConnect)
+def _register_builtin_channels():
+    from pwncat.channel.bind import Bind
+    from pwncat.channel.connect import Connect
+    from pwncat.channel.socket import Socket
+    from pwncat.channel.ssh import Ssh
+    from pwncat.channel.ssl_bind import SSLBind
+    from pwncat.channel.ssl_connect import SSLConnect
+
+    register("socket", Socket)
+    register("bind", Bind)
+    register("connect", Connect)
+    register("ssh", Ssh)
+    register("ssl-bind", SSLBind)
+    register("ssl-connect", SSLConnect)
+
+
+_register_builtin_channels()
