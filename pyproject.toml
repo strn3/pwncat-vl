@@ -70,6 +70,16 @@ testpaths = [
 ]
 addopts = "-v"
 
+[tool.ruff.lint]
+ignore = [
+    "BLE001", # Command and transport boundaries intentionally catch all failures.
+    "DTZ005", # Session timestamps intentionally use the host's local time.
+    "N999",   # The import.py command module name is part of the command layout.
+    "RUF012", # Module metadata is intentionally shared as mutable class state.
+    "S110",   # Best-effort transport cleanup intentionally ignores failures.
+    "TRY002", # Test fixture uses a simple failure exception by design.
+]
+
 [tool.uv]
 default-groups = "all"
 
