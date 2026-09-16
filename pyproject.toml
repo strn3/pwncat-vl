@@ -1,6 +1,73 @@
+[project]
+name = "pwncat-vl"
+version = "0.7.0"
+description = "Community-maintained fork of pwncat with Python 3.13+ support"
+authors = [
+    { name = "Chocapikk", email = "balgogan@protonmail.com" },
+    { name = "Caleb Stewart", email = "caleb.stewart94@gmail.com" },
+    { name = "John Hammond" },
+]
+requires-python = ">=3.9,<4"
+readme = "README.md"
+license = "MIT"
+keywords = [
+    "offsec",
+    "cyber",
+    "exploitation",
+    "privesc",
+    "automation",
+    "redteam",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+    "psutil>=6.0,<7",
+    "packaging>=23.0,<26",
+    "libpass>=1.9,<2",
+    "prompt-toolkit>=3.0.19,<4",
+    "requests>=2.32,<3",
+    "rich>=10.4,<14",
+    "ZODB3>=3.11,<4",
+    "Jinja2>=3.1,<4",
+    "paramiko-ng>=2.9,<2.10",
+    "cryptography>=43.0,<43.1",
+    "pygments>=2.0,<3",
+]
+
+[project.optional-dependencies]
+docs = [
+    "sphinx-toolbox>=3.8,<4",
+    "Sphinx>=7.4,<8",
+    "enum-tools>=0.12,<0.13",
+    "furo>=2024.0",
+]
+
+[project.urls]
+Repository = "https://github.com/Chocapikk/pwncat-vl"
+Documentation = "https://pwncat.readthedocs.io"
+"Bug Tracker" = "https://github.com/Chocapikk/pwncat-vl/issues"
+
+[project.scripts]
+pwncat-vl = "pwncat.__main__:main"
+
 [tool.isort]
 profile = "black"
 length_sort = true
+
+[dependency-groups]
+dev = [
+    "isort>=5.13,<6",
+    "pytest>=8.0,<9",
+    "flake8>=7.0,<8",
+    "ruff>=0.7,<0.8",
+]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -9,61 +76,13 @@ testpaths = [
 ]
 addopts = "-v"
 
-[tool.poetry]
-name = "pwncat-vl"
-version = "0.7.0"
-description = "Community-maintained fork of pwncat with Python 3.13+ support"
-authors = ["Chocapikk <balgogan@protonmail.com>", "Caleb Stewart <caleb.stewart94@gmail.com>", "John Hammond"]
-readme = "README.md"
-repository = "https://github.com/Chocapikk/pwncat-vl"
-documentation = "https://pwncat.readthedocs.io"
-keywords = ["offsec", "cyber", "exploitation", "privesc", "automation", "redteam"]
-packages = [
-  { include = "pwncat" },
-]
-license = "MIT"
+[tool.uv]
+default-groups = "all"
 
-[tool.poetry.scripts]
-pwncat-vl = "pwncat.__main__:main"
-
-[tool.poetry.urls]
-"Bug Tracker" = "https://github.com/Chocapikk/pwncat-vl/issues"
-
-[tool.poetry.dependencies]
-# Reproducibility + supply-chain protection is provided by ``poetry.lock``
-# (committed alongside this file): every transitive package is recorded
-# with its SHA-256 hashes, so ``poetry install`` refuses any artefact that
-# was tampered with on PyPI. The constraints below stay deliberately
-# permissive so end-users running ``pip install pwncat-vl`` can co-exist
-# with the rest of their pentest toolchain. Security-sensitive packages
-# (``cryptography``, ``paramiko-ng``) use the tilde (``~``) operator to
-# only accept patch updates of the audited minor.
-python = "^3.9"
-psutil = "^6.0"
-packaging = ">=23.0,<26"
-libpass = "^1.9"
-prompt-toolkit = "^3.0.19"
-requests = "^2.32"
-rich = ">=10.4,<14"
-ZODB3 = "^3.11"
-Jinja2 = "^3.1"
-paramiko-ng = "~2.9"
-cryptography = "~43.0"
-pygments = "^2.0"
-sphinx-toolbox = { version = "^3.8", optional = true }
-Sphinx = { version = "^7.4", optional = true }
-enum-tools = { version = "^0.12", optional = true }
-furo = { version = ">=2024.0", optional = true }
-
-[tool.poetry.group.dev.dependencies]
-isort = "^5.13"
-pytest = "^8.0"
-flake8 = "^7.0"
-ruff = "^0.7"
-
-[tool.poetry.extras]
-docs = ["sphinx-toolbox", "Sphinx", "enum-tools", "furo"]
+[tool.uv.build-backend]
+module-name = ["pwncat"]
+module-root = ""
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["uv_build>=0.12.15,<0.13.0"]
+build-backend = "uv_build"
