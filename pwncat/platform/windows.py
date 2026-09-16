@@ -100,7 +100,9 @@ class stat_result:
 class WindowsFile(RawIOBase):
     """Wrapper around file handles on Windows"""
 
-    def __init__(self, platform: Windows, mode: str, handle: int, name: str | None = None):
+    def __init__(
+        self, platform: Windows, mode: str, handle: int, name: str | None = None
+    ):
         self.platform = platform
         self.mode = mode
         self.handle = handle

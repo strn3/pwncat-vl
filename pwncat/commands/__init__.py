@@ -36,6 +36,7 @@ from __future__ import annotations
         def run(self, manager: "pwncat.manager.Manager", args: "argparse.Namespace"):
             manager.log("we ran a custom command!")
 """
+
 from __future__ import annotations
 
 import argparse
@@ -616,7 +617,7 @@ class CommandParser:
                 # We don't want this caught below, so we catch it here
                 # then re-raise it to be caught by the interactive method
                 raise
-            except (Exception):
+            except Exception:
                 console.print_exception(width=None)
                 continue
 

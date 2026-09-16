@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 from typing import Optional
 
 import pwncat
@@ -67,7 +68,7 @@ class SpawnAbility(Fact):
     def __init__(self, source, uid):
         super().__init__(types=["ability.spawn"], source=source)
 
-    def execute(self, session: "pwncat.manager.Session", path):
+    def execute(self, session: pwncat.manager.Session, path):
         """Execute the given binary outside of this session w/ no IO"""
 
 
@@ -82,6 +83,6 @@ class EscalationStep(Fact):
 
     def execute(
         self,
-        session: "pwncat.manager.Session",
-    ) -> Optional["pwncat.manager.Session"]:
+        session: pwncat.manager.Session,
+    ) -> Optional[pwncat.manager.Session]:
         """Execute the escalation optionally returning a new session"""

@@ -14,7 +14,9 @@ from pwncat.channel.bind import Bind
 
 
 class SSLBind(Bind):
-    def __init__(self, certfile: str | None = None, keyfile: str | None = None, **kwargs):
+    def __init__(
+        self, certfile: str | None = None, keyfile: str | None = None, **kwargs
+    ):
         super().__init__(**kwargs)
 
         self.context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)

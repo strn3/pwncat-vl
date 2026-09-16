@@ -598,7 +598,9 @@ class Path:
         with self.open("wb") as filp:
             filp.write(data)
 
-    def write_text(self, data: str, encoding: str | None = None, errors: str | None = None):
+    def write_text(
+        self, data: str, encoding: str | None = None, errors: str | None = None
+    ):
         """Open the file pointed to in text mode, and write data to it."""
 
         with self.open("w", encoding=encoding, errors=errors) as filp:
