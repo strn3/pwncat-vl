@@ -160,7 +160,7 @@ class PopenLinux(pwncat.subprocess.Popen):
         except BlockingIOError:
             return None
 
-    def wait(self, timeout: float = None):
+    def wait(self, timeout: float | None = None):
 
         if timeout is not None:
             end_time = time.time() + timeout
@@ -271,7 +271,7 @@ class LinuxReader(BufferedIOBase):
     remote file.
     """
 
-    def __init__(self, popen, on_close=None, name: str = None):
+    def __init__(self, popen, on_close=None, name: str | None = None):
         super().__init__()
 
         self.popen = popen
@@ -402,7 +402,7 @@ class LinuxWriter(BufferedIOBase):
         0x7F,
     ]
 
-    def __init__(self, popen, on_close=None, name: str = None):
+    def __init__(self, popen, on_close=None, name: str | None = None):
         super().__init__()
 
         self.popen = popen
@@ -1105,10 +1105,10 @@ class Linux(Platform):
     def compile(
         self,
         sources: list[str | BinaryIO],
-        output: str = None,
-        suffix: str = None,
-        cflags: list[str] = None,
-        ldflags: list[str] = None,
+        output: str | None = None,
+        suffix: str | None = None,
+        cflags: list[str] | None = None,
+        ldflags: list[str] | None = None,
     ) -> str:
         """
         Attempt to compile the given C source files into a binary suitable for the remote
@@ -1435,8 +1435,8 @@ class Linux(Platform):
         mode: str = "r",
         buffering: int = -1,
         encoding: str = "utf-8",
-        errors: str = None,
-        newline: str = None,
+        errors: str | None = None,
+        newline: str | None = None,
     ):
         """
         Open a remote file for reading or writing. Normally, only one of read or
@@ -2078,7 +2078,7 @@ class Linux(Platform):
         except CalledProcessError as exc:
             raise OSError(f"Invalid argument: '{path}'") from exc
 
-    def umask(self, mask: int = None):
+    def umask(self, mask: int | None = None):
         """Set or retrieve the current umask value"""
 
         if mask is None:

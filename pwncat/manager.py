@@ -825,7 +825,7 @@ class Manager:
     sessions, and executing modules.
     """
 
-    def __init__(self, config: str = None):
+    def __init__(self, config: str | None = None):
         self.config = Config()
         self.session_id = 0  # start with 0-indexed session IDs
         self.sessions: dict[int, Session] = {}

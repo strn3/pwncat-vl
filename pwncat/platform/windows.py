@@ -100,7 +100,7 @@ class stat_result:
 class WindowsFile(RawIOBase):
     """Wrapper around file handles on Windows"""
 
-    def __init__(self, platform: Windows, mode: str, handle: int, name: str = None):
+    def __init__(self, platform: Windows, mode: str, handle: int, name: str | None = None):
         self.platform = platform
         self.mode = mode
         self.handle = handle
@@ -329,7 +329,7 @@ class PopenWindows(pwncat.subprocess.Popen):
             self.returncode = result["code"] or 0
             return self.returncode
 
-    def wait(self, timeout: float = None):
+    def wait(self, timeout: float | None = None):
 
         if timeout is not None:
             end_time = time.time() + timeout
@@ -932,8 +932,8 @@ function prompt {
         mode: str = "r",
         buffering: int = -1,
         encoding: str = "utf-8",
-        errors: str = None,
-        newline: str = None,
+        errors: str | None = None,
+        newline: str | None = None,
     ):
         """Mimic the built-in open method."""
 

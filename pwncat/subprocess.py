@@ -87,7 +87,7 @@ class Popen:
         """Check if the child process has terminated. Set and return
         ``returncode`` attribute. Otherwise, returns None."""
 
-    def wait(self, timeout: float = None) -> int:
+    def wait(self, timeout: float | None = None) -> int:
         """Wait for child process to terminate. Set and return
         ``returncode`` attribute.
 
@@ -96,7 +96,7 @@ class Popen:
         this exception and retry the wait.
         """
 
-    def communicate(self, input: bytes = None, timeout: float = None):
+    def communicate(self, input: bytes | None = None, timeout: float | None = None):
         """Interact with process: Send data to stdin. Read data from stdout
         and stderr, until end-of-file is reached. Wait for the process to
         terminate and set the ``returncode`` attribute. The optional ``input``

@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 from __future__ import annotations
 
 import re
@@ -39,9 +38,9 @@ class SudoSpec(Fact):
         host: str | None = None,
         runas_user: str | None = None,
         runas_group: str | None = None,
-        options: list[str] = None,
-        hash: str = None,
-        commands: list[str] = None,
+        options: list[str] | None = None,
+        hash: str | None = None,
+        commands: list[str] | None = None,
     ):
         super().__init__(source=source, types=["software.sudo.rule"])
 

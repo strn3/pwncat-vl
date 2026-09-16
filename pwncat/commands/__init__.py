@@ -36,6 +36,7 @@ from __future__ import annotations
         def run(self, manager: "pwncat.manager.Manager", args: "argparse.Namespace"):
             manager.log("we ran a custom command!")
 """
+from __future__ import annotations
 
 import argparse
 import fcntl
@@ -196,7 +197,7 @@ class Parameter:
         self,
         complete: Complete,
         token=token.Name.Label,
-        group: str = None,
+        group: str | None = None,
         *args,
         **kwargs,
     ):
@@ -257,7 +258,7 @@ class CommandDefinition:
     #     ),
     # }
 
-    def __init__(self, manager: "pwncat.manager.Manager"):
+    def __init__(self, manager: pwncat.manager.Manager):
         """Initialize a new command instance. Parse the local arguments array
         into an argparse object."""
 
@@ -274,7 +275,7 @@ class CommandDefinition:
         else:
             self.parser = None
 
-    def run(self, manager: "pwncat.manager.Manager", args):
+    def run(self, manager: pwncat.manager.Manager, args):
         """
         This is the "main" for your new command. This should perform the action
         represented by your command.
@@ -427,7 +428,7 @@ class CommandParser:
     termios modes for the control tty at will in order to support raw vs
     command mode."""
 
-    def __init__(self, manager: "pwncat.manager.Manager"):
+    def __init__(self, manager: pwncat.manager.Manager):
         """We need to dynamically load commands from pwncat.commands"""
 
         self.manager = manager
@@ -615,11 +616,11 @@ class CommandParser:
                 # We don't want this caught below, so we catch it here
                 # then re-raise it to be caught by the interactive method
                 raise
-            except (Exception, KeyboardInterrupt):
+            except (Exception):
                 console.print_exception(width=None)
                 continue
 
-    def dispatch_line(self, line: str, prog_name: str = None):
+    def dispatch_line(self, line: str, prog_name: str | None = None):
         """Parse the given line of command input and dispatch a command"""
 
         # Account for blank or whitespace only lines
@@ -806,7 +807,7 @@ class CommandLexer(RegexLexer):
     tokens = {}
 
     @classmethod
-    def build(cls, commands: list["CommandDefinition"]) -> type["CommandLexer"]:
+    def build(cls, commands: list[CommandDefinition]) -> type[CommandLexer]:
         """Build the RegexLexer token list from the command definitions"""
 
         root = []
@@ -855,7 +856,7 @@ class CommandLexer(RegexLexer):
 class RemotePathCompleter(Completer):
     """Complete remote file names/paths"""
 
-    def __init__(self, manager: "pwncat.manager.Manager", *args, **kwargs):
+    def __init__(self, manager: pwncat.manager.Manager, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.manager = manager
 
@@ -909,8 +910,8 @@ class CommandCompleter(Completer):
 
     def __init__(
         self,
-        manager: "pwncat.manager.Manager",
-        commands: list["CommandDefinition"],
+        manager: pwncat.manager.Manager,
+        commands: list[CommandDefinition],
     ):
         """Construct a new command completer"""
 

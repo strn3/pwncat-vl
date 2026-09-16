@@ -161,8 +161,8 @@ class Method:
         self,
         gtfo: GTFOBins,
         binary_path: str,
-        spec: str = None,
-        user: str = None,
+        spec: str | None = None,
+        user: str | None = None,
         suid: bool = False,
         **kwargs,
     ) -> str:
@@ -340,7 +340,7 @@ class Binary:
         binary_path: str,
         caps: Capability,
         stream: Stream,
-        spec: str = None,
+        spec: str | None = None,
     ):
         """Iterate over methods in this binary matching the capability and stream
         masks"""
@@ -394,7 +394,7 @@ class GTFOBins:
             binary_data = json.load(filp)
 
         if not isinstance(binary_data, dict):
-            raise ValueError("invalid gtfobins.json format (expecting dict)")
+            raise TypeError("invalid gtfobins.json format (expecting dict)")
 
         self.parse_binary_data(binary_data)
 
@@ -457,7 +457,7 @@ class GTFOBins:
         binary_path: str,
         caps: Capability = Capability.ALL,
         stream: Stream = None,
-        spec: str = None,
+        spec: str | None = None,
     ) -> Generator[MethodWrapper, None, None]:
         """Iterate over methods for the given remote binary path. A binary will
         be located by taking the basename of the given path, and the cross-
@@ -478,7 +478,7 @@ class GTFOBins:
         self,
         caps: Capability = Capability.ALL,
         stream: Stream = None,
-        spec: str = None,
+        spec: str | None = None,
     ) -> Generator[MethodWrapper, None, None]:
         """Iterate over methods which provide the given capabilities"""
 

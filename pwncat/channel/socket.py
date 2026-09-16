@@ -49,7 +49,7 @@ class Socket(Channel):
     an existing connection.
     """
 
-    def __init__(self, client: socket.socket = None, **kwargs):
+    def __init__(self, client: socket.socket | None = None, **kwargs):
 
         if isinstance(client, str):
             raise ChannelError(self, f"expected socket object not {type(client)!r}")

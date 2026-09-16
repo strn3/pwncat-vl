@@ -287,9 +287,9 @@ class Channel(ABC):
     def __init__(
         self,
         host: str,
-        port: int = None,
-        user: str = None,
-        password: str = None,
+        port: int | None = None,
+        user: str | None = None,
+        password: str | None = None,
         **kwargs,
     ):
         self.host: str = host

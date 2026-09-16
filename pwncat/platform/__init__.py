@@ -444,9 +444,9 @@ class Path:
         self,
         mode: str = "r",
         buffering: int = -1,
-        encoding: str = None,
-        errors: str = None,
-        newline: str = None,
+        encoding: str | None = None,
+        errors: str | None = None,
+        newline: str | None = None,
     ):
         """Open the file pointed to by the path, like Platform.open"""
 
@@ -471,7 +471,7 @@ class Path:
         with self.open("rb") as filp:
             return filp.read()
 
-    def read_text(self, encoding: str = None, errors: str = None) -> str:
+    def read_text(self, encoding: str | None = None, errors: str | None = None) -> str:
         """Return the decoded contents of the pointed-to file as a string"""
 
         with self.open("r", encoding=encoding, errors=errors) as filp:
@@ -598,7 +598,7 @@ class Path:
         with self.open("wb") as filp:
             filp.write(data)
 
-    def write_text(self, data: str, encoding: str = None, errors: str = None):
+    def write_text(self, data: str, encoding: str | None = None, errors: str | None = None):
         """Open the file pointed to in text mode, and write data to it."""
 
         with self.open("w", encoding=encoding, errors=errors) as filp:
@@ -632,7 +632,7 @@ class Platform(ABC):
         self,
         session: pwncat.manager.Session,
         channel: pwncat.channel.Channel,
-        log: str = None,
+        log: str | None = None,
         verbose: bool = False,
     ):
 
@@ -862,10 +862,10 @@ class Platform(ABC):
     def compile(
         self,
         sources: list[str | BinaryIO],
-        output: str = None,
-        suffix: str = None,
-        cflags: list[str] = None,
-        ldflags: list[str] = None,
+        output: str | None = None,
+        suffix: str | None = None,
+        cflags: list[str] | None = None,
+        ldflags: list[str] | None = None,
     ) -> str:
         """
         Attempt to compile the given C source files into a binary suitable for the remote
@@ -1082,7 +1082,7 @@ class Platform(ABC):
         raise NotImplementedError(f"sudo not implemented for platform {self.name}")
 
     @abstractmethod
-    def umask(self, mask: int = None):
+    def umask(self, mask: int | None = None):
         """Set or retrieve the current umask value"""
 
     @abstractmethod
@@ -1168,7 +1168,7 @@ def find(name: str) -> type[Platform]:
 
 def create(
     platform: str,
-    log: str = None,
+    log: str | None = None,
     channel: pwncat.channel.Channel | None = None,
     **kwargs,
 ):

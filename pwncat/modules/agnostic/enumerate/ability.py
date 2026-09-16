@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+from __future__ import annotations
 from typing import Optional
 
 import pwncat
@@ -20,8 +20,8 @@ class FileReadAbility(Fact):
         mode: str = "r",
         buffering: int = -1,
         encoding: str = "utf-8",
-        errors: str = None,
-        newline: str = None,
+        errors: str | None = None,
+        newline: str | None = None,
     ):
         """Open a file for reading. This method mimics the builtin open
         function, and returns a file-like object for reading."""
@@ -42,8 +42,8 @@ class FileWriteAbility(Fact):
         mode: str = "r",
         buffering: int = -1,
         encoding: str = "utf-8",
-        errors: str = None,
-        newline: str = None,
+        errors: str | None = None,
+        newline: str | None = None,
     ):
         """Open a file for writing. This method mimics the builtin open
         function and returns a file-like object for writing."""
@@ -57,7 +57,7 @@ class ExecuteAbility(Fact):
 
         self.uid = uid
 
-    def execute(self, session: "pwncat.manager.Session", path):
+    def execute(self, session: pwncat.manager.Session, path):
         """Exectue the given binary in the current session as another user"""
 
 

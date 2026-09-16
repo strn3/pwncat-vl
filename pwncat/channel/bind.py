@@ -8,6 +8,8 @@ The only required argument for a bind channel is the port number. By default,
 the channel will listen on all interfaces (bound to ``0.0.0.0``).
 """
 
+from __future__ import annotations
+
 import errno
 import socket
 
@@ -25,7 +27,7 @@ class Bind(Socket):
     connection is a shell from the victim.
     """
 
-    def __init__(self, port: int, host: str = None, **kwargs):
+    def __init__(self, port: int, host: str | None = None, **kwargs):
 
         if not host or host == "":
             host = "0.0.0.0"

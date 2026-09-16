@@ -100,8 +100,8 @@ class FileReadAbility(Fact):
         mode: str = "r",
         buffering: int = -1,
         encoding: str = "utf-8",
-        errors: str = None,
-        newline: str = None,
+        errors: str | None = None,
+        newline: str | None = None,
     ) -> IO:
         """Open a file for reading. This method mimics the builtin open
         function, and returns a file-like object for reading as the
@@ -137,8 +137,8 @@ class FileWriteAbility(Fact):
         mode: str = "r",
         buffering: int = -1,
         encoding: str = "utf-8",
-        errors: str = None,
-        newline: str = None,
+        errors: str | None = None,
+        newline: str | None = None,
     ) -> IO:
         """Open a file for writing. This method mimics the builtin open
         function and returns a file-like object for writing as the
@@ -245,8 +245,8 @@ class GTFOFileRead(FileReadAbility):
         mode: str = "r",
         buffering: int = -1,
         encoding: str = "utf-8",
-        errors: str = None,
-        newline: str = None,
+        errors: str | None = None,
+        newline: str | None = None,
     ):
         """Read the file data using a GTFObins reader"""
 
@@ -344,8 +344,8 @@ class GTFOFileWrite(FileWriteAbility):
         mode: str = "w",
         buffering: int = -1,
         encoding: str = "utf-8",
-        errors: str = None,
-        newline: str = None,
+        errors: str | None = None,
+        newline: str | None = None,
     ):
         """Read the file data using a GTFObins reader"""
 
@@ -436,7 +436,7 @@ class GTFOExecute(ExecuteAbility):
         self.method = method
         self.kwargs = kwargs
 
-    def send_command(self, session, command: bytes = None):
+    def send_command(self, session, command: bytes | None = None):
         """Send the command to the target for this GTFObins"""
 
     def Popen(self, session, *args, **kwargs):

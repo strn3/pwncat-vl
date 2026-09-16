@@ -26,8 +26,8 @@ class Ssh(Channel):
         host: str,
         user: str,
         port: int = 22,
-        password: str = None,
-        identity: str = None,
+        password: str | None = None,
+        identity: str | None = None,
         **kwargs,
     ):
         super().__init__(host, port, user, password)
@@ -133,7 +133,7 @@ class Ssh(Channel):
         return data
 
 
-def load_private_key(identity: str | TextIO, passphrase: str = None):
+def load_private_key(identity: str | TextIO, passphrase: str | None = None):
     """Load a private key and return the appropriate PKey object"""
 
     if identity is None:
