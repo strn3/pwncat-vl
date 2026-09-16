@@ -57,10 +57,6 @@ Documentation = "https://pwncat.readthedocs.io"
 [project.scripts]
 pwncat-vl = "pwncat.__main__:main"
 
-[tool.isort]
-profile = "black"
-length_sort = true
-
 [dependency-groups]
 dev = [
     "isort>=5.13,<6",
