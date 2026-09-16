@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import pwncat
 from pwncat.facts import PrivateKey
 from pwncat.modules import ModuleFailed, Status

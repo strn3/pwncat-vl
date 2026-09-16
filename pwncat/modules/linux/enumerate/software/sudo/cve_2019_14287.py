@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 from packaging.version import InvalidVersion, parse
 
 import pwncat

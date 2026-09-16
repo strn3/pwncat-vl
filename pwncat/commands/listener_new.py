@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 from rich.prompt import Confirm
 
 import pwncat

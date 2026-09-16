@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 from passlib.hash import sha512_crypt
 
 import pwncat

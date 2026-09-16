@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import os.path
 from importlib.resources import files as _pkg_files
 

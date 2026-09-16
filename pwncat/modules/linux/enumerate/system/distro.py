@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-
 from pwncat.facts import DistroVersionData
 from pwncat.modules.enumerate import EnumerateModule
 from pwncat.platform.linux import Linux

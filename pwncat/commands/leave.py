@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import pwncat
 from pwncat.commands import CommandDefinition, Complete, Parameter
 

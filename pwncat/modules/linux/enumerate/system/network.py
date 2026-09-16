@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import rich.markup
 
 from pwncat.db import Fact

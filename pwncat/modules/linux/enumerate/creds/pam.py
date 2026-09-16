@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 from pwncat.facts import PotentialPassword
 from pwncat.modules.enumerate import EnumerateModule, Schedule
 from pwncat.platform.linux import Linux

@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import pwncat
 from pwncat.facts.linux import LinuxGroup
 from pwncat.modules import ModuleFailed, Status

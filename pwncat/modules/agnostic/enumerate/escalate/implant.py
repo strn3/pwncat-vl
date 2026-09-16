@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import pwncat
 from pwncat.facts import EscalationReplace, EscalationSpawn, Implant
 from pwncat.modules.enumerate import EnumerateModule, Schedule

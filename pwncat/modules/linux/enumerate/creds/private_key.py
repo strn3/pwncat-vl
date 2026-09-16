@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import rich.markup
 from cryptography.exceptions import UnsupportedAlgorithm
 from cryptography.hazmat.primitives.serialization import (

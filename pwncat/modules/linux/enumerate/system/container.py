@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 from pwncat.db import Fact
 from pwncat.modules.enumerate import EnumerateModule
 from pwncat.platform.linux import Linux

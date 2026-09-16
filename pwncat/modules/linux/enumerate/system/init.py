@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-
-
 from pwncat import util
 from pwncat.db import Fact
 from pwncat.modules.enumerate import EnumerateModule

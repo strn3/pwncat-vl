@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 from io import BytesIO
 from pathlib import Path
 

@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import textwrap
 
 from rich import box

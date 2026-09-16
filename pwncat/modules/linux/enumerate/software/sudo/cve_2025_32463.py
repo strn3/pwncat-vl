@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 pwncat-vl ExecuteAbility + Enumerator
 CVE-2025-32463  – sudo “-R” / NSS-preload LPE

@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import pwncat
 from pwncat.facts.windows import ProcessTokenPrivilege
 from pwncat.modules import ModuleFailed

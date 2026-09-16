@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 from rich.prompt import Prompt
 
 from pwncat.facts import Implant, KeepImplantFact

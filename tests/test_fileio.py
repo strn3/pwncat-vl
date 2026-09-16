@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 from pwncat.util import random_string
 
 

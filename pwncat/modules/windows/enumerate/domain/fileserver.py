@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import pwncat
 from pwncat.modules import Status
 from pwncat.modules.enumerate import EnumerateModule, Schedule

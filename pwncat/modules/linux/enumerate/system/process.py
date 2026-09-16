@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import shlex
 
 from pwncat.db import Fact

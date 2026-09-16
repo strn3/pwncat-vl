@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 from rich import box
 from rich.prompt import Prompt
 from rich.table import Table
