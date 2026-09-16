@@ -1230,10 +1230,12 @@ class Linux(Platform):
         for source in sources:
             # Upload or write data
             if isinstance(source, str):
-                with open(source, "rb") as src:
-                    with self.tempfile(suffix=".c", mode="wb") as dest:
-                        shutil.copyfileobj(src, dest)
-                        real_sources.append(str(dest.name))
+                with (
+                    open(source, "rb") as src,
+                    self.tempfile(suffix=".c", mode="wb") as dest,
+                ):
+                    shutil.copyfileobj(src, dest)
+                    real_sources.append(str(dest.name))
             else:
                 with self.tempfile(mode="w", suffix=".c") as dest:
                     shutil.copyfileobj(source, dest)
@@ -1303,7 +1305,7 @@ class Linux(Platform):
         elif isinstance(args, str):
             command = args
         else:
-            raise ValueError("expected a command string or list of arguments")
+            raise TypeError("expected a command string or list of arguments")
 
         if self.command_running is not None:
             raise PlatformError(
@@ -1724,7 +1726,7 @@ class Linux(Platform):
         if isinstance(command, list):
             command = shlex.join(command)
         elif not isinstance(command, str):
-            raise ValueError("expected a command string or list of arguments")
+            raise TypeError("expected a command string or list of arguments")
 
         if popen_kwargs.get("shell"):
             command = shlex.join(["/bin/sh", "-c", command])

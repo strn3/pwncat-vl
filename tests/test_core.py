@@ -132,12 +132,16 @@ class TestModuleLoading:
         import pwncat.manager
 
         config = io.StringIO('set -g db "memory://"\n')
-        with tempfile.TemporaryDirectory() as tmp:
-            with pwncat.manager.Manager(config=config) as manager:
-                before = len(manager.modules)
-                manager.load_modules(tmp)
-                # Empty dir, should not add any modules
-                assert len(manager.modules) == before
+        with (
+            tempfile.TemporaryDirectory() as tmp,
+            pwncat.manager.Manager(
+                config=config,
+            ) as manager,
+        ):
+            before = len(manager.modules)
+            manager.load_modules(tmp)
+            # Empty dir, should not add any modules
+            assert len(manager.modules) == before
 
 
 class TestChannelRegistry:

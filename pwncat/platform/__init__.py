@@ -142,7 +142,7 @@ def probe_platform(channel, timeout: float = 3.0) -> str | None:
             if not chunk:
                 break
             banner.extend(chunk)
-    except Exception:  # noqa: BLE001
+    except Exception:
         pass
 
     # Each command identifies a platform by what it prints on *stdout*, so we
@@ -167,7 +167,7 @@ def probe_platform(channel, timeout: float = 3.0) -> str | None:
 
     try:
         channel.send(probe)
-    except Exception:  # noqa: BLE001
+    except Exception:
         return None
 
     # Collect output until we see the end marker or the timeout elapses.
@@ -179,7 +179,7 @@ def probe_platform(channel, timeout: float = 3.0) -> str | None:
         chunk = None
         try:
             chunk = channel.recv(4096)
-        except Exception:  # noqa: BLE001
+        except Exception:
             break
         if chunk:
             buffer.extend(chunk)
@@ -694,7 +694,6 @@ class Platform(ABC):
         the python readline module exists in the windows platform. Linux uses
         this default implementation."""
 
-        sys.stdin
         has_prefix = False
 
         pwncat.util.push_term_state()

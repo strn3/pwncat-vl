@@ -1052,7 +1052,6 @@ class Manager:
 
         # This is required to ensure multi-byte key-sequences are read
         # properly
-        sys.stdin
         sys.stdin = TextIOWrapper(
             os.fdopen(sys.stdin.fileno(), "br", buffering=0),
             write_through=True,
@@ -1099,6 +1098,7 @@ class Manager:
                 def output_thread_main(
                     target: Session,
                     exception_queue: queue.SimpleQueue,
+                    interactive_complete=interactive_complete,
                 ):
 
                     while not interactive_complete.is_set():
@@ -1281,7 +1281,7 @@ class Manager:
 
                     if binding.strip().startswith("pass"):
                         self.target.platform.channel.send(byte)
-                        binding = binding.lstrip("pass")
+                        binding = binding.removeprefix("pass")
                     else:
                         self.target.platform.interactive = False
                         # pwncat.util.restore_terminal(term_state)

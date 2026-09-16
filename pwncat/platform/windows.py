@@ -498,9 +498,11 @@ class Windows(Platform):
                 data = request.raw.read()
                 with tarfile.open(mode="r:gz", fileobj=BytesIO(data)) as tar:
                     for provided in plugin.provides:
-                        with tar.extractfile(provided) as provided_filp:
-                            with (path.parent / provided).open("wb") as output:
-                                shutil.copyfileobj(provided_filp, output)
+                        with (
+                            tar.extractfile(provided) as provided_filp,
+                            (path.parent / provided).open("wb") as output,
+                        ):
+                            shutil.copyfileobj(provided_filp, output)
 
         return path.open("rb")
 
@@ -793,7 +795,7 @@ function prompt {
         if isinstance(args, list):
             args = subprocess.list2cmdline(args)
         elif not isinstance(args, str):
-            raise ValueError("expected command string or list of arguments")
+            raise TypeError("expected command string or list of arguments")
 
         try:
             result = self.run_method("Process", "start", args)

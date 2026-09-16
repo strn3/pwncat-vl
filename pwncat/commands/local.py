@@ -14,4 +14,4 @@ class Command(CommandDefinition):
     LOCAL = True
 
     def run(self, manager: "pwncat.manager.Manager", args):
-        subprocess.run(args, shell=True)
+        subprocess.run(args, shell=True, check=False)

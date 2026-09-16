@@ -204,10 +204,10 @@ def run_decorator(real_run):
     def decorator(self, session, progress=None, **kwargs):
 
         # Validate arguments
-        for key in kwargs:
+        for key, value in kwargs.items():
             if key in self.ARGUMENTS:
                 try:
-                    kwargs[key] = self.ARGUMENTS[key].type(kwargs[key])
+                    kwargs[key] = self.ARGUMENTS[key].type(value)
                 except ValueError as exc:
                     raise ArgumentFormatError(key) from exc
             elif not self.ALLOW_KWARGS:

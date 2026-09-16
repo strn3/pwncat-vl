@@ -140,9 +140,9 @@ class Command(CommandDefinition):
 
         # Show all other categories
         if categories:
-            for category, results in categories.items():
+            for category, category_results in categories.items():
                 console.print(f"[bold]{category}[/bold]")
-                for result in results:
+                for result in category_results:
                     console.print(f"  - {result.title(manager.target)}")
 
         # Show long-form results in their own sections
